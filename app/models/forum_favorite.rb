@@ -1,0 +1,2 @@
+class ForumFavorite < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+module ForumFavoritesHelper
+end
