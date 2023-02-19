@@ -1,30 +1,29 @@
 Rails.application.routes.draw do
-  get 'forum_favorites/create'
-  get 'forum_favorites/destroy'
-  get 'forum_comments/create'
-  get 'forums/index'
-  get 'forums/create'
-  get 'forums/show'
-  get 'notifications/index'
-  get 'notifications/create'
-  get 'notifications/destroy'
-  get 'follows/create'
-  get 'follows/destroy'
-  get 'requests/create'
-  get 'requests/destroy'
-  get 'likes/create'
-  get 'likes/destroy'
-  get 'post_comments/create'
-  get 'post_comments/destroy'
-  get 'seaches/post_seach'
-  get 'seaches/user_seach'
-  get 'posts/new'
-  get 'posts/create'
-  get 'posts/update'
-  get 'posts/destroy'
-  get 'posts/show'
-  devise_for :users
-  get 'homes/top'
-  get 'homes/about'
+  
+  devise_for :users, skip: [:passwords], controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
+  root to: 'homes#top'
+  resources :users, except: [:new, :index, :destroy] do
+    collection do
+      get '/infomation' => 'users#show_info'
+      patch '/infomation' => 'users#update'
+      get 'confirm'
+      patch 'withdraw'
+    end
+    resources :requests, only: [:create, :destroy]
+    resources :follows, only: [:create, :destroy]
+    resources :notifications, only: [:index, :create, :destroy] do
+      delete 'destroy_all', on: :collection
+    end
+    resources :forum_favorites, only: [:create, :destroy]
+  end
+  resources :posts, except: [:edit, :index] do
+    resources :post_comments, only: [:create, :destroy]
+  end
+  get 'post_seach' => 'seaches#post_seach'
+  get 'song_seach' => 'seaches#song_seach'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
