@@ -1,2 +1,8 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<% if params[:id] == current_user.id.to_s %>
+<%= image_tag @user.get_profile_image(100,100) %><br>
+<%= current_user.name %> さん
+<div class="h1">コメント</div>
+
+<% else %>
+<h1>ちくわ大明神</h1>
+<% end %>

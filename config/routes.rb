@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users, skip: [:passwords], controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
+  devise_scope :user do
+    get '/users/sign_out' => 'users/sessions#destroy'
+  end
+
   root to: 'homes#top'
+  get 'about' => 'homes#about'
+
   resources :users, except: [:new, :index, :destroy] do
     collection do
       get '/infomation' => 'users#show_info'
@@ -22,6 +28,7 @@ Rails.application.routes.draw do
   resources :posts, except: [:edit, :index] do
     resources :post_comments, only: [:create, :destroy]
   end
+
   get 'post_seach' => 'seaches#post_seach'
   get 'song_seach' => 'seaches#song_seach'
 

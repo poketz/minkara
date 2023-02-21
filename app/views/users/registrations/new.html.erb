@@ -1,13 +1,13 @@
 <h2>Sign up</h2>
 
-<%= form_with model: @user, url: user_registration_path do |f| %>  
+<%= form_with model: @user, url: user_registration_path do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %><br/>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
   <div class="field">
@@ -27,8 +27,29 @@
     <%= f.label :gender %><br>
     <%= f.radio_button :gender, User.genders.key(0) %>
     <%= f.label :gender_male, User.genders_i18n[:male] %>
+    <%= f.radio_button :gender, User.genders.key(1) %>
+    <%= f.label :gender_female, User.genders_i18n[:female] %>
+    <%= f.radio_button :gender, User.genders.key(2) %>
+    <%= f.label :gender_other, User.genders_i18n[:other] %>
   </div>
 
+  <div class="field">
+    <%= f.label :prefecture %><br>
+    <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]} %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :birthday %><br>
+    <%= f.date_select(
+      :birthday, 
+      start_year: 1930,
+      end_year: Time.now.year,
+      default: Date.new(1989, 1, 1)) %>
+  </div>
+  
+  <div class="field">
+    <%= f.file_field :profile_image, accept: "image/*" %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
