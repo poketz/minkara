@@ -1,2 +1,32 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div class="container">
+  <div class="row m-0 align-items-center mt-3">
+    <ul class="list-unstyled mr-5" >
+      <li><%= image_tag @post.user.get_profile_image(100,100) %></li>
+      <li><%= @post.user.name %> さん </li>
+    </ul>
+    <audio src= "<%= "#{@post.audio}" %>"controls="">
+  </div>
+  <div class="row m-0">
+    <div class="mr-5">
+      <%= @post.song.song_name %> / <%= @post.song.artist_name %>    
+    </div>
+
+    <div>
+      再生数：　いいね：
+    </div>
+  </div>
+  <div class="mt-3">
+    投稿者のコメント<br>
+    <%= @post.poster_comment %>
+  </div>
+  <div>
+    <%= form_with model: @post_comment, url: post_post_comments_path(post_id: @post.id) do |f| %>
+      <%= f.label :comments %>
+      <%= f.text_field :comments %>
+      <%= f.submit %>
+    <% end %>
+      
+  </div>
+
+
+</div>

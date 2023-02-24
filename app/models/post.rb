@@ -3,4 +3,6 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   belongs_to :user
   belongs_to :song
+  
+  mount_uploader :audio, AudioUploader
 end

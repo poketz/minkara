@@ -1,4 +1,4 @@
 class ForumComment < ApplicationRecord
   belongs_to :forum
-  belongs_to :
+  belongs_to :user
 end
