@@ -35,6 +35,12 @@
         </div>
       </nav>
     </header>
-    <%= yield %>
+    <main>
+      <%= render 'shared/flash_message' %>
+      <%= yield %>
+    </main>
+    <footer class="text-center mt-5 bg-info">
+      <p class=" py-5 mb-0 text-white">Copyright © Hiroki Kondo All Rights Reserved.</p>
+    </footer>
   </body>
 </html>

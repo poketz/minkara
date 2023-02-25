@@ -1,0 +1,5 @@
+<%= form_with model: @post_comment, 
+url: post_post_comments_path(post_id: @post.id), local: false do |f| %>
+  <%= f.text_field :body %>
+  <%= f.submit 'コメントする' %>
+<% end %>

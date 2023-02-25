@@ -14,8 +14,11 @@ class PostsController < ApplicationController
       song =  Song.create!(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
       @post.song_id = song.id
     end
-    @post.save!
-    redirect_to user_path(current_user.id)
+    if @post.save
+      redirect_to user_path(current_user.id)
+    else
+      render 'show'
+    end
   end
 
   def update
@@ -27,6 +30,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    @post_comments = @post.post_comments.all
   end
 
   private
