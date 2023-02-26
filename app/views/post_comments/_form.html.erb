@@ -1,4 +1,7 @@
 <%= form_with model: @post_comment, url: post_post_comments_path(post_id: @post.id), local: false do |f| %>
+  <div id="flash_message"><%= render 'shared/flash_message' %></div>
+  <div id="comments-error"><%= render 'shared/error_messages', model: @post_comment %></div>
+
   <%= f.text_area :body, id: 'post_comment' %>
   <div><%= f.submit 'コメントする' %></div>
 <% end %>

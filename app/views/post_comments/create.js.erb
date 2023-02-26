@@ -3,3 +3,4 @@ $("#comments_list").html("<%= j(render 'comments_list') %>");
 <!--フォームを送信したあとにフォームの値を空にします-->
 $("#post_comment").val('');
 $('#flash_message').html("<%= j(render 'shared/flash_message') %>");
+$('#comments-error').html("<%= j(render 'shared/error_messages', model: @post_comment) %>");
