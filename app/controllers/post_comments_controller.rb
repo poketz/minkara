@@ -7,8 +7,6 @@ class PostCommentsController < ApplicationController
     @post_comment.post_id = params[:post_id]
     if @post_comment.save
       flash.now[:primary] = 'コメントを投稿しました'
-    # else
-    #   render 'error'
     end
 
   end

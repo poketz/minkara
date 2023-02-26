@@ -5,4 +5,5 @@ class Post < ApplicationRecord
   belongs_to :song
   
   mount_uploader :audio, AudioUploader
+  is_impressionable
 end
