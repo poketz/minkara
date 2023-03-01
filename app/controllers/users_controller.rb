@@ -18,4 +18,12 @@ class UsersController < ApplicationController
 
   def withdraw
   end
+
+  def search
+    if params[:word].present?
+      @users = User.search(params[:word])
+    else
+      @users = User.none
+    end
+  end
 end

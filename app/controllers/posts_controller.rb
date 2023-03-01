@@ -34,6 +34,10 @@ class PostsController < ApplicationController
     # impressionist(@post, nil, :unique => [:])
   end
 
+  def search
+    @posts = Post.search(params[:post][:word])
+  end
+
   private
 
   def post_params

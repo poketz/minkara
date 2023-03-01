@@ -25,12 +25,19 @@
             <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li class="nav-item"><%= link_to 'マイページ', user_path(current_user.id), class: "nav-link text-dark" %></li>
+              <li class="nav-item"><%= link_to 'ユーザー検索', search_users_path, class: "nav-link text-dark" %></li>
               <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link text-dark" %></li>
             <% else %>
               <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: "nav-link text-dark" %></li>
               <li class="nav-item"><%= link_to 'ログイン', new_user_session_path, class: "nav-link text-dark" %></li>
             <% end %>
             </ul>
+          </div>
+          <div>
+            <%= form_with url: search_posts_path, model: @posts, method: :get do |f| %>
+              <%= f.text_field :word, autocomplete: "off" %>
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            <% end %>
           </div>
         </div>
       </nav>

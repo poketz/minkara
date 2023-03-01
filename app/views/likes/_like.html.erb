@@ -1,0 +1,13 @@
+<% if @post.likes.exists?(user_id: current_user.id) %>
+  <p>
+    <%= link_to post_likes_path(@post), method: :delete, remote: true do %>
+      ♥<%= @post.likes.count %> いいね
+    <% end %>
+  </p>
+  <% else %>
+  <p>
+    <%= link_to post_likes_path(@post), method: :post, remote: true do %>
+      ♡<%= @post.likes.count %> いいね
+    <% end %>
+  </p>
+<% end %>

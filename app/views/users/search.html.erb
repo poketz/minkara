@@ -1,0 +1,20 @@
+<div class="container">
+  <h4>ユーザー検索</h4>
+  <div>
+    <%= form_with url: search_users_path, model: @posts, method: :get do |f| %>
+      <%= f.text_field :word, autocomplete: "off" %>
+      <%= f.submit "検索", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  
+  <table class="table table-hover table-inverse">
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= image_tag user.get_profile_image(75,75) %></td>
+          <td><%= user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

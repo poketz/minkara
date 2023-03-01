@@ -37,4 +37,8 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  def self.search(word)
+    # キーワード検索からユーザーを特定
+    where(["name like?", "%#{word}%"])
+  end
 end

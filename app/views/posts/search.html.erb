@@ -1,0 +1,14 @@
+<div class="container">
+  <h4>検索結果</h4>
+  <table class="table table-hover table-inverse">
+    <tbody>
+      <% @posts.each do |pos| %>
+        <tr>
+          <td><%= pos.song.artist_name %></td>
+          <td><%= pos.song.song_name %></td>
+          <td><%= pos.poster_comment %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

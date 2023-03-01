@@ -16,13 +16,55 @@
 
   <h3 class="mt-3">投稿一覧</h3>
   <% @posts.each do |pos| %>
-    <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
-      <div class="row border p-4 mt-2">
-        <%= pos.song.song_name %> /
-        <%= pos.song.artist_name %><br>
-        <%= pos.poster_comment %>
+      <div class="border p-4 mt-2 position-relative">
+
+        <div class="row mx-0 justify-content-between ">
+          <div class="h6">
+            <%= link_to post_path(pos.id), class: "text-dark text-decoration-none stretched-link" do %>
+              <%= pos.song.song_name %> /
+              <%= pos.song.artist_name %>
+            <% end %>
+          </div>
+          <div><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+        </div>
+
+        <%= pos.poster_comment %><br>
+
+        <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>", class="like_count">
+          いいね <%= pos.likes.count %>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">いいね履歴</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                <% pos.likes.each do |like| %>
+                  <%= link_to user_path(like.user_id) do %>
+                    <%= like.user.name %>
+                  <% end %>
+                  <%= like.created_at.strftime('%Y/%m/%d') %>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <span class="pl-3">コメント <%= pos.post_comments.count %></span>
+
       </div>
-    <% end %>
+
   <% end %>
 
   <% else %>

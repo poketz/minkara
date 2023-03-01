@@ -16,20 +16,8 @@
 
   </div>
 
-  <div class="mt-3">
-    <% if @post.likes.exists?(user_id: current_user.id) %>
-      <p>
-        <%= link_to post_likes_path(@post), method: :delete do %>
-          ♥<%= @post.likes.count %> いいね
-        <% end %>
-      </p>
-      <% else %>
-      <p>
-        <%= link_to post_likes_path(@post), method: :post do %>
-          ♡<%= @post.likes.count %> いいね
-        <% end %>
-      </p>
-    <% end %>
+  <div class="mt-3" id="likes">
+    <%= render "likes/like" %>
   </div>
 
   <div class="mt-3">
