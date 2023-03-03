@@ -1,9 +1,9 @@
 <div class="container">
-  <%= render 'shared/flash_message' %>
-  
+  <%= render 'users/shared/flash_message' %>
+
   <!--ユーザーの判定-->
   <% if params[:id] == current_user.id.to_s %>
-    
+
     <div class="mt-3">
     <%= image_tag @user.get_profile_image(100,100) %><br>
     <%= @user.name %> さん
@@ -13,11 +13,11 @@
         地域：<%= @user.prefecture_i18n %>
       </div>
     </div>
-  
+
     <div>
       <%= link_to '新規投稿', new_post_path %>
     </div>
-  
+
     <h3 class="mt-3">投稿一覧</h3>
     <% @posts.each do |pos| %>
         <div class="border p-4 mt-2 position-relative">
@@ -45,7 +45,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-  
+
                   <% pos.likes.each do |like| %>
                     <%= link_to user_path(like.user_id) do %>
                       <%= like.user.name %>
@@ -61,7 +61,7 @@
           </div>
           <span class="pl-3">コメント <%= pos.post_comments.count %></span>
         </div>
-  
+
     <% end %>
 
   <% else %>
@@ -74,11 +74,11 @@
         地域：<%= @user.prefecture_i18n %>
       </div>
     </div>
-  
+
     <div>
       <%= link_to '新規投稿', new_post_path %>
     </div>
-  
+
     <h3 class="mt-3">投稿一覧</h3>
     <% @posts.each do |pos| %>
         <div class="border p-4 mt-2 position-relative">
@@ -106,7 +106,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-  
+
                   <% pos.likes.each do |like| %>
                     <%= link_to user_path(like.user_id) do %>
                       <%= like.user.name %>
@@ -122,7 +122,7 @@
           </div>
           <span class="pl-3">コメント <%= pos.post_comments.count %></span>
         </div>
-  
+
     <% end %>
   <% end %>
 </div>

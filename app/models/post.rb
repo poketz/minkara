@@ -7,10 +7,21 @@ class Post < ApplicationRecord
   mount_uploader :audio, AudioUploader
   is_impressionable
 
-  def self.search(word)
-    # キーワード検索から曲を特定
-    songs = Song.where(["artist_name like? OR song_name like?", "%#{word}%", "%#{word}%"])
+  def self.search(search, word)
+    # キーワード検索からユーザーを特定
+    if search == "perfect_match"
+      @songs = Song.where("artist_name like? OR song_name like?","#{word}","#{word}")
+    elsif search == "forward_match"
+      @songs = Song.where("artist_name like? OR song_name like?", "#{word}%","#{word}%")
+    elsif search == "backward_match"
+      @songs = Song.where("artist_name like? OR song_name like?","%#{word}","%#{word}")
+    elsif search == "partial_match"
+      @songs = Song.where("artist_name like? OR song_name like?","%#{word}%","%#{word}%")
+    else
+      @songs = Song.all
+    end
+    
     # 曲のidに合致する投稿を抽出
-    Post.where(song_id: songs.ids)
+    Post.where(song_id: @songs.ids)
   end
 end

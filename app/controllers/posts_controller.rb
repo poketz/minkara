@@ -35,7 +35,15 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = Post.search(params[:post][:word])
+    
+      @posts = Post.search(params[:search], params[:word])
+      if @posts.count != 0
+        flash.now[:primary] = "#{@posts.count}件の投稿が見つかりました。"
+      else
+        flash.now[:danger] = "投稿が見つかりませんでした。"
+      end
+
+
   end
 
   private

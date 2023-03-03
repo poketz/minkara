@@ -37,8 +37,18 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def self.search(word)
+  def self.search(search, word)
     # キーワード検索からユーザーを特定
-    where(["name like?", "%#{word}%"])
+    if search == "perfect_match"
+      User.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      User.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      User.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      User.where("name LIKE?","%#{word}%")
+    else
+      User.all
+    end
   end
 end

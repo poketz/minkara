@@ -1,59 +1,63 @@
-<h2>Sign up</h2>
 
-<%= form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, autocomplete: "off" %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br/>
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+<div class="container">
+  <h2>Sign up</h2>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+  <%= form_with model: @user, url: user_registration_path do |f| %>
+    <%= render "shared/error_messages", model: resource %>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, autocomplete: "off" %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br/>
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <span>（6文字以上）</span>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.radio_button :gender, User.genders.key(0) %>
-    <%= f.label :gender_male, User.genders_i18n[:male] %>
-    <%= f.radio_button :gender, User.genders.key(1) %>
-    <%= f.label :gender_female, User.genders_i18n[:female] %>
-    <%= f.radio_button :gender, User.genders.key(2) %>
-    <%= f.label :gender_other, User.genders_i18n[:other] %>
-  </div>
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :prefecture %><br>
-    <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]} %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :birthday %><br>
-    <%= f.date_select(
-      :birthday, 
-      start_year: 1930,
-      end_year: Time.now.year,
-      default: Date.new(1989, 1, 1)) %>
-  </div>
-  
-  <div class="field">
-    <%= f.file_field :profile_image, accept: "image/*" %>
-  </div>
+    <div class="field">
+      <%= f.label :gender %><br>
+      <%= f.radio_button :gender, User.genders.key(0) %>
+      <%= f.label :gender_male, User.genders_i18n[:male] %>
+      <%= f.radio_button :gender, User.genders.key(1) %>
+      <%= f.label :gender_female, User.genders_i18n[:female] %>
+      <%= f.radio_button :gender, User.genders.key(2) %>
+      <%= f.label :gender_other, User.genders_i18n[:other] %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.label :prefecture %><br>
+      <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]} %>
+    </div>
 
-<%= render "users/shared/links" %>
+    <div class="field">
+      <%= f.label :birthday %><br>
+      <%= f.date_select(
+        :birthday,
+        start_year: 1930,
+        end_year: Time.now.year,
+        default: Date.new(1989, 1, 1)) %>
+    </div>
+
+    <div class="field">
+      <%= f.file_field :profile_image, accept: "image/*" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+
+</div>
