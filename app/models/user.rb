@@ -7,8 +7,10 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :requests, dependent: :destroy
-  has_many :follows, dependent: :destroy
+  has_many :active_requests, class_name: "Request", foreign_key: :requester_id, dependent: :destroy
+  has_many :passive_requests, class_name: "Request", foreign_key: :requested_id, dependent: :destroy
+  has_many :active_follows, class_name: "Follow", foreign_key: :follower_id, dependent: :destroy
+  has_many :passive_follows, class_name: "Follow", foreign_key: :followee_id, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :forum_comments, dependent: :destroy
   has_many :forum_favorites, dependent: :destroy
