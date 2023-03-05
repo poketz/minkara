@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.all
+    @active_users = @user.followings
+    @passive_users = @user.followers
   end
 
   def show_info

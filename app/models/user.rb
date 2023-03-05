@@ -15,6 +15,11 @@ class User < ApplicationRecord
   has_many :forum_comments, dependent: :destroy
   has_many :forum_favorites, dependent: :destroy
 
+  #フォロー一覧を表示するための記述
+  has_many :followings, through: :active_follows, source: :followee
+   #フォロワー一覧を表示するための記述
+  has_many :followers, through: :passive_follows, source: :follower
+
   enum gender: { male: 0, female: 1, other: 2 }
   enum prefecture: {
     please_select:0,
@@ -39,6 +44,7 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  # ユーザー検索
   def self.search(search, word)
     # キーワード検索からユーザーを特定
     if search == "perfect_match"
@@ -52,5 +58,18 @@ class User < ApplicationRecord
     else
       User.all
     end
+  end
+
+  # フォローしたときの処理
+  def follow(user_id)
+    Follow.create(follower_id: self.id, followee_id: user_id)
+  end
+  # フォローを外すときの処理
+  def unfollow(user_id)
+    Follow.find_by(followee_id: user_id).destroy
+  end
+  # フォローしているか判定
+  def following?(user)
+    followings.include?(user)
   end
 end

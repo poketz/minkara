@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 2023_02_18_132803) do
     t.integer "gender", default: 0, null: false
     t.date "birthday"
     t.integer "prefecture", default: 0, null: false
+    t.string "introduction"
     t.integer "user_status", default: 0, null: false
     t.boolean "admin", default: false, null: false
     t.datetime "created_at", precision: 6, null: false

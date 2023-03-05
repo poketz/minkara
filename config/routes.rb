@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       get 'search'
     end
     resources :requests, only: [:create, :destroy]
-    resources :follows, only: [:create, :destroy]
+    resource :follows, only: [:create, :destroy]
     resources :notifications, only: [:index, :create, :destroy] do
       delete 'destroy_all', on: :collection
     end
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   resources :forums, only: [:index, :create, :show] do
     resources :forum_comments, only: [:create, :destroy]
   end
- 
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

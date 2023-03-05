@@ -1,16 +1,106 @@
 <div class="container">
-  <%= render 'users/shared/flash_message' %>
+ <%= render 'shared/flash_message' %>
 
   <!--ユーザーの判定-->
   <% if params[:id] == current_user.id.to_s %>
 
-    <div class="mt-3">
-    <%= image_tag @user.get_profile_image(100,100) %><br>
-    <%= @user.name %> さん
-      <div>
-        性別：<%= @user.gender_i18n %><br>
-        年齢：<%= (Date.today.strftime('%Y%m%d').to_i - @user.birthday.strftime('%Y%m%d').to_i) / 10000 %>歳<br>
-        地域：<%= @user.prefecture_i18n %>
+    <!--マイページ-->
+    <div class="mt-3 row mx-0">
+      <div class="col-3">
+        <div>
+          <%= @user.name %> さん<br>
+          <%= image_tag @user.get_profile_image(125,125) %>
+        </div>
+        <div>
+          性別：<%= @user.gender_i18n %><br>
+          年齢：<%= (Date.today.strftime('%Y%m%d').to_i - @user.birthday.strftime('%Y%m%d').to_i) / 10000 %>歳<br>
+          地域：<%= @user.prefecture_i18n %>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="border p-4"><%= @user.introduction %></div>
+        <div>
+          <a href="#" data-toggle="modal" data-target="#exampleModal", class="follow_count">
+            フォロー:<%= @user.followings.count %>
+          </a>
+          <!-- モーダル -->
+          <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">フォローリスト</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-hover table-inverse">
+                    <tbody>
+                      <% if @active_users.exists? %>
+                        <% @active_users.each do |user| %>
+                          <tr class="position-relative align-middle">
+                            <td><%= image_tag user.get_profile_image(75,75) %></td>
+                            <!-- stretched-linkで枠全体をリンクに-->
+                            <td class="align-middle">
+                              <%= link_to user_path(user.id), class: "stretched-link text-decoration-none text-dark" do %>
+                                <%= user.name %> さん
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      <% else %>
+                        ユーザーはいません。
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#" data-toggle="modal" data-target="#exampleModal2", class="follow_count">
+            フォロワー:<%= @user.followers.count %>
+          </a>
+          <!-- モーダル -->
+          <div class="modal" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">フォロワーリスト</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-hover table-inverse">
+                    <tbody>
+                      <% if @passive_users.exists? %>
+                        <% @passive_users.each do |user| %>
+                          <tr class="position-relative align-middle">
+                            <td><%= image_tag user.get_profile_image(75,75) %></td>
+                            <!-- stretched-linkで枠全体をリンクに-->
+                            <td class="align-middle">
+                              <%= link_to user_path(user.id), class: "stretched-link text-decoration-none text-dark" do %>
+                                <%= user.name %> さん
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      <% else %>
+                        ユーザーはいません。
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -18,23 +108,18 @@
       <%= link_to '新規投稿', new_post_path %>
     </div>
 
-    <h3 class="mt-3">投稿一覧</h3>
+    <h4 class="mt-3">投稿一覧</h4>
     <% @posts.each do |pos| %>
     <div class="card-wrapper">
       <%= link_to post_path(pos.id), class: "text-dark text-decoration-none stretched-link" do %>
         <div class="border p-4 pb-5 mt-2 position-relative">
           <div class="row mx-0 justify-content-between ">
             <div class="h6">
-
-                <span class="test"><%= pos.song.song_name %></span> /
-                <%= pos.song.artist_name %>
-
+              <span class="test"><%= pos.song.song_name %></span> / <%= pos.song.artist_name %>
             </div>
             <div><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
           </div>
           <%= pos.poster_comment %><br>
-
-
         </div>
       <% end %>
       <div class="favorite-link">
@@ -68,28 +153,30 @@
           </div>
         </div>
       </div>
-
     </div>
-
-
     <% end %>
 
+  <!--他のユーザーのページ-->
   <% else %>
     <div class="mt-3">
-    <%= image_tag @user.get_profile_image(100,100) %><br>
-    <%= @user.name %> さん
+      <%= image_tag @user.get_profile_image(125,125) %><br>
+      <%= @user.name %> さん
       <div>
         性別：<%= @user.gender_i18n %><br>
         年齢：<%= (Date.today.strftime('%Y%m%d').to_i - @user.birthday.strftime('%Y%m%d').to_i) / 10000 %>歳<br>
         地域：<%= @user.prefecture_i18n %>
       </div>
+
+      <% if current_user.following?(@user) %>
+        <%= link_to "フォロー中", user_follows_path(@user.id), method: :delete %>
+      <% else %>
+        <%= link_to "フォローする", user_follows_path(@user.id), method: :post %>
+      <% end %>
+        フォロー:<%= @user.followings.count %>
+        フォロワー:<%= @user.followers.count %>
     </div>
 
-    <div>
-      <%= link_to '新規投稿', new_post_path %>
-    </div>
-
-    <h3 class="mt-3">投稿一覧</h3>
+    <h4 class="mt-3">投稿一覧</h4>
     <% @posts.each do |pos| %>
         <div class="border p-4 mt-2 position-relative">
           <div class="row mx-0 justify-content-between ">
@@ -116,7 +203,6 @@
                   </button>
                 </div>
                 <div class="modal-body">
-
                   <% pos.likes.each do |like| %>
                     <%= link_to user_path(like.user_id) do %>
                       <%= like.user.name %>
