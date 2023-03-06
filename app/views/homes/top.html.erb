@@ -1,6 +1,54 @@
-<%= render 'users/shared/flash_message' %>
-<%= image_tag 'karaoke.jpg', class: 'w-50 p-0' %>
-
 <div class="container">
+  <%= render 'users/shared/flash_message' %>
+  <div class="row">
+    <%= image_tag 'karaoke.jpg', class: 'col-lg-6' %>
+    <div class="">
+      <h1 class="pt-4 pl-4">歌ってつながる<br>コミュニティ</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5 justify-content-around">
+    <div class="">
+      <h4 class="mb-3">新着投稿</h4>
+      <% @posts.each do |pos| %>
+        <div class="border p-4 mt-2 position-relative">
+          <div class="row mx-0 justify-content-between ">
+            <div class="h6">
+              <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
+                <%= pos.song.song_name %> /
+                <%= pos.song.artist_name %>
+              <% end %>
+            </div>
+            <div class="pl-4"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+          </div>
+          <div>
+            <%= pos.user.name %> さん
+            <span class="pl-4">いいね <%= pos.likes.count %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="">
+      <h4 class="mb-3">月間いいねランキング</h4>
+      <% @week_post_like_ranks.each do |pos| %>
+        <div class="border p-4 mt-2 position-relative">
+          <div class="row mx-0 justify-content-between ">
+            <div class="h6">
+              <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
+                <%= pos.song.song_name %> /
+                <%= pos.song.artist_name %>
+              <% end %>
+            </div>
+            <div class="pl-4"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+          </div>
+          <div>
+            <%= pos.user.name %> さん
+            <span class="pl-4">いいね <%= pos.likes.count %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
 </div>
 
