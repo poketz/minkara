@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:search]
+
   def new
     @post = Post.new
   end
@@ -35,7 +37,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    
+
       @posts = Post.search(params[:search], params[:word])
       if @posts.count != 0
         flash.now[:primary] = "#{@posts.count}件の投稿が見つかりました。"

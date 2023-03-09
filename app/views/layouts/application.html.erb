@@ -14,12 +14,7 @@
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-
           <a class="navbar-brand p-3 text-dark" href="/"> <span class="align-middle h4"><h3>ぽすカラ</h3></span></a>
-          <% if user_signed_in? %>
-            <span class="ml-md-4 ml-0">ようこそ、<%= current_user.name %>さん！</span>
-          <% end %>
-          
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -27,12 +22,19 @@
             <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li class="nav-item"><%= link_to 'マイページ', user_path(current_user.id), class: "nav-link text-dark" %></li>
+              <li class="nav-item">
+                <%= link_to user_notifications_path(current_user.id), class: "nav-link text-dark position-relative" do %>
+                  <span class="">通知一覧</span>
+                  <%= render 'shared/unread_badge' %>
+                <% end %>
+              </li>
               <li class="nav-item"><%= link_to 'ユーザー検索', search_users_path, class: "nav-link text-dark" %></li>
               <li class="nav-item"><%= link_to '投稿を探す', search_posts_path, class: "nav-link text-dark" %></li>
               <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link text-dark" %></li>
             <% else %>
               <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: "nav-link text-dark" %></li>
               <li class="nav-item"><%= link_to 'ログイン', new_user_session_path, class: "nav-link text-dark" %></li>
+              <li class="nav-item"><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post, class: "nav-link text-dark" %></ %></li>
             <% end %>
             </ul>
           </div>

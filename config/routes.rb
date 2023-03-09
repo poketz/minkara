@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     get '/users/sign_out' => 'users/sessions#destroy'
+    post 'users/guest_sign_in' => 'users/sessions#guest_sign_in'
   end
 
   root to: 'homes#top'
@@ -22,8 +23,9 @@ Rails.application.routes.draw do
     end
     resources :requests, only: [:create, :destroy]
     resource :follows, only: [:create, :destroy]
-    resources :notifications, only: [:index, :create, :destroy] do
-      delete 'destroy_all', on: :collection
+    resources :notifications, only: [:index] do
+      patch :read, on: :member
+      patch :read_all, on: :collection
     end
     # forumにネストさせた方がいいかも？
     resources :forum_favorites, only: [:create, :destroy]
