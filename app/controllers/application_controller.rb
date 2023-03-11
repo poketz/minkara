@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  add_flash_types :success, :info, :warning, :danger, :primary, :secondary
+  add_flash_types :success, :info, :warning, :danger
 
   def after_sign_in_path_for(resource)
     user_path(current_user.id)
@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource)
     root_path
+  end
+  
+  def guest_check
+    if current_user == User.find_by(email: 'guest@example.com')
+      redirect_to root_path, notice: "このページを見るには会員登録が必要です。"
+    end
   end
 
 

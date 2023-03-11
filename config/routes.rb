@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       patch 'withdraw'
       get 'search'
     end
-    resources :requests, only: [:create, :destroy]
+    resources :requests, only: [:index, :create, :destroy]
     resource :follows, only: [:create, :destroy]
     resources :notifications, only: [:index] do
       patch :read, on: :member

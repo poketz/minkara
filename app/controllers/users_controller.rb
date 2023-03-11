@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!
+  before_action :guest_check, except: [:show, :search]
 
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.all
     @active_users = @user.followings
     @passive_users = @user.followers
+    @request = Request.new
   end
 
   def show_info

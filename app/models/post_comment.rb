@@ -9,6 +9,6 @@ class PostComment < ApplicationRecord
 
   def create_notifications
 
-    Notification.create!(subject: self, user_id: self.post.user.id, action: Notification.actions[:post_comment])
+    Notification.create!(subject: self, user_id: self.post.user_id, action: Notification.actions[:post_comment])
   end
 end

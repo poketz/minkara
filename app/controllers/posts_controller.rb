@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:search]
+  before_action :guest_check, except: [:search, :show]
 
   def new
     @post = Post.new

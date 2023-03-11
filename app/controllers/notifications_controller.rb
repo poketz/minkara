@@ -21,11 +21,12 @@ class NotificationsController < ApplicationController
   def transition_path(notification)
     case notification.action
     when 'request'
+      # モーダルにリダイレクトするには？
       # request_path(notification.subject)
     when 'post_comment'
-      post_path(notification.subject.post.id)
+      post_path(notification.subject.post_id)
     when 'follow'
-      user_path(notification.subject.follow.follower_id)
+      user_path(notification.subject.follower_id)
     else
       root_path
     end

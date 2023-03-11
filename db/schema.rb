@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2023_02_18_132803) do
     t.integer "requester_id", null: false
     t.integer "requested_id", null: false
     t.integer "song_id", null: false
+    t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

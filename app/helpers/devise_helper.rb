@@ -7,6 +7,10 @@ module DeviseHelper
       "dark"
     when "error"
       "danger"
+    when "primary"
+      "primary"
+    when "success"
+      "success"
     end
   end
 end

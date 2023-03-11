@@ -1,7 +1,7 @@
 class Notification < ApplicationRecord
   belongs_to :subject, polymorphic: true
   belongs_to :user
-  
+
   enum action: {
     request: 0,
     follow: 1,
