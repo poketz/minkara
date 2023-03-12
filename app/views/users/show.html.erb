@@ -23,7 +23,7 @@
           <a href="#" data-toggle="modal" data-target="#exampleModal", class="follow_count">
             フォロー:<%= @user.followings.count %>
           </a>
-          <!-- モーダル -->
+          <!-- フォローモーダル -->
           <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -63,7 +63,7 @@
           <a href="#" data-toggle="modal" data-target="#exampleModal2", class="follow_count">
             フォロワー:<%= @user.followers.count %>
           </a>
-          <!-- モーダル -->
+          <!-- フォロワーモーダル -->
           <div class="modal" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -132,7 +132,7 @@
         </a>
         <span class="pl-3">コメント <%= pos.post_comments.count %></span>
       </div>
-      <!-- モーダル -->
+      <!-- いいねモーダル -->
       <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -179,10 +179,10 @@
       フォロー:<%= @user.followings.count %>
       フォロワー:<%= @user.followers.count %>
 
-      <a href="#" data-toggle="modal" data-target="#exampleModal", class="follow_count">
+      <a href="#" data-toggle="modal" data-target="#exampleModal">
         リクエストを送る
       </a>
-      <!-- モーダル -->
+      <!-- リクエストモーダル -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

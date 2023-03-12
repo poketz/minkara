@@ -1,5 +1,10 @@
 class RequestsController < ApplicationController
   
+  def index
+    @passive_requests = current_user.passive_requests.all
+    @active_requests = current_user.active_requests.all
+  end
+
   def create
     @user = User.find(params[:user_id])
     @request = Request.new(request_params)
@@ -21,6 +26,9 @@ class RequestsController < ApplicationController
   end
 
   def destroy
+    request = Request.find(params[:id])
+    request.destroy
+    redirect_to user_requests_path(current_user.id), notice: "リクエストを削除しました。"
   end
   
   private

@@ -22,7 +22,7 @@ class NotificationsController < ApplicationController
     case notification.action
     when 'request'
       # モーダルにリダイレクトするには？
-      # request_path(notification.subject)
+      user_requests_path(notification.subject.requested_id)
     when 'post_comment'
       post_path(notification.subject.post_id)
     when 'follow'

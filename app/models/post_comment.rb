@@ -8,7 +8,6 @@ class PostComment < ApplicationRecord
   validates :body, presence: true, length: {maximum: 150}
 
   def create_notifications
-
     Notification.create!(subject: self, user_id: self.post.user_id, action: Notification.actions[:post_comment])
   end
 end

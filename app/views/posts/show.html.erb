@@ -2,9 +2,9 @@
 
 
   <div class="row m-0 align-items-center mt-3">
-    <ul class="list-unstyled mr-5" >
+    <ul class="list-unstyled mr-5">
       <li><%= image_tag @post.user.get_profile_image(100,100) %></li>
-      <li><%= @post.user.name %></li>
+      <li><%= link_to @post.user.name, user_path(@post.user_id) %></li>
     </ul>
     <audio src= "<%= "#{@post.audio}" %>"controls="">
   </div>
