@@ -1,15 +1,33 @@
-<div class="container">
-  <%= render 'users/shared/flash_message' %>
-  <div class="row">
-    <%= image_tag 'karaoke.jpg', class: 'col-lg-6' %>
-    <div class="">
-      <h1 class="pt-4 pl-4">歌ってつながる<br>コミュニティ</h1>
+<div class="row mx-0">
+
+  <%= image_tag 'karaoke.jpg', class: 'col-lg-7 px-0' %>
+  <div class="col-lg-5 bg-dark text-white text-center d-flex align-items-center justify-content-center">
+    <div>
+      <div class="pb-5">
+        <h1 class=" theme">歌ってつながる<br>コミュニティ</h1>
+      </div>
+      <div>
+        <p>ぽすカラは音楽をメインにしたコミュニティサイトです。</p>
+        <p>好きな曲を歌ってどんどん投稿してみましょう！</p>
+        <p>ユーザーをフォローし合ってお互いの投稿を聴いたり、</p>
+        <p>投稿リクエストを送ったりと様々な楽しみ方があります。</p>
+      </div>
     </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="flash_field">
+    <%= render 'users/shared/flash_message' %>
   </div>
 
   <div class="row mt-5 justify-content-around">
     <div class="col-lg-6">
-      <h4 class="mb-3">新着投稿</h4>
+      <div class="d-flex align-items-center mb-3">
+        <%= image_tag 'new.svg', size: '45x45', class: "pr-1"%>
+        <h4 class="mb-0">新着投稿</h4>
+      </div>
       <% @posts.each do |pos| %>
         <div class="border p-4 mt-2 position-relative">
           <div class="row mx-0 justify-content-between ">
@@ -29,7 +47,10 @@
       <% end %>
     </div>
     <div class="col-lg-6">
-      <h4 class="mb-3">今週のいいねランキング</h4>
+      <div class="d-flex align-items-center mb-3">
+        <%= image_tag 'ranking.png', size: '45x45' %>
+        <h4 class="mb-0">今週のいいねランキング</h4>
+      </div>
       <% @week_post_like_ranks.each do |pos| %>
         <div class="border p-4 mt-2 position-relative">
           <div class="row mx-0 justify-content-between ">

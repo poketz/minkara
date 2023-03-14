@@ -116,6 +116,8 @@ GEM
       activesupport (>= 3.0.0)
     erubi (1.12.0)
     ffi (1.15.5)
+    font-awesome-sass (6.3.0)
+      sassc (~> 2.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     http-accept (1.7.0)
@@ -322,6 +324,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   enum_help
+  font-awesome-sass
   image_processing (~> 1.2)
   impressionist
   jbuilder (~> 2.7)
