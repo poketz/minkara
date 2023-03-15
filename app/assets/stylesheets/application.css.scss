@@ -30,3 +30,18 @@
   font-family: 'Zen Kaku Gothic New', sans-serif;
 }
 
+.body-wrapper {
+  position: relative;
+  padding-bottom: 190px;
+  min-height: 100vh;  // bodyの最小サイズをウィンドウの大きさにする
+}
+
+header {
+  margin-bottom: 30px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
