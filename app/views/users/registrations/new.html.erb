@@ -1,62 +1,73 @@
 <div class="container">
-  <h2>新規登録</h2>
-
-  <%= form_with model: @user, url: user_registration_path do |f| %>
-    <%= render "shared/error_messages", model: resource %>
-    <div class="form-group">
-        <%= f.label :name, "ユーザーネーム" %>
-        <%= f.text_field :name, autocomplete: "off", class: "form-control" %>
+  <div class="col-md-8 col-lg-6 mx-auto border rounded bg-light">
+    <div class="d-flex justify-content-between align-items-end mx-md-5">
+      <h4 class="mt-4 mb-0">新規登録</h4>
+      <span class="">登録がお済の方は<%= render "users/shared/links" %></span>
     </div>
-    <div class="form-group">
-      <%= f.label :email, "Eメール" %><br/>
-      <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :password, "パスワード" %>
-      <% if @minimum_password_length %>
-      <span>（6文字以上）</span>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-    </div>
+    
+    <%= form_with model: @user, url: user_registration_path, class: "my-4 mx-md-5" do |f| %>
+      <%= render "shared/error_messages", model: resource %>
+      <div class="form-group">
+          <%= f.label :name, "ユーザーネーム" %>
+          <%= f.text_field :name, autocomplete: "off", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email, "Eメール" %><br/>
+        <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, "パスワード" %>
+        <% if @minimum_password_length %>
+        <span>（6文字以上）</span>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :gender %><br>
-      <%= f.radio_button :gender, User.genders.key(0) %>
-      <%= f.label :gender_male, User.genders_i18n[:male] %>
-      <%= f.radio_button :gender, User.genders.key(1) %>
-      <%= f.label :gender_female, User.genders_i18n[:female] %>
-      <%= f.radio_button :gender, User.genders.key(2) %>
-      <%= f.label :gender_other, User.genders_i18n[:other] %>
-    </div>
+      <div class="form-group">
+        <%= f.label :gender, "性別" %>
+        <div>
+          <div class="form-check-inline">
+            <%= f.radio_button :gender, User.genders.key(0), class: "form-check-input" %>
+            <%= f.label :gender_male, User.genders_i18n[:male], class: "form-check-label" %>
+          </div>
+          <div class="form-check-inline">
+            <%= f.radio_button :gender, User.genders.key(1), class: "form-check-input" %>
+            <%= f.label :gender_female, User.genders_i18n[:female], class: "form-check-label" %>
+          </div>
+          <div class="form-check-inline">
+            <%= f.radio_button :gender, User.genders.key(2), class: "form-check-input" %>
+            <%= f.label :gender_other, User.genders_i18n[:other], class: "form-check-label" %>
+          </div>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :prefecture %>
-      <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, class: "form-control" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :prefecture, "都道府県" %>
+        <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, class: "form-control" %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :birthday %>
-      <%= f.date_select(
-        :birthday,
-        start_year: 1930,
-        end_year: Time.now.year,
-        default: Date.new(1989, 1, 1)) %>
-    </div>
+      <div class="form-group">
+        <%= f.label :birthday, "生年月日" %>
+        <%= f.date_select(
+          :birthday,
+          start_year: 1930,
+          end_year: Time.now.year,
+          default: Date.new(1989, 1, 1)) %>
+      </div>
 
-    <div class="form-group">
-      <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :profile_image, "プロフィール画像" %>
+        <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file" %>
+      </div>
 
-    <div class="actions">
-      <%= f.submit "Sign up" %>
-    </div>
-  <% end %>
-
-  <%= render "users/shared/links" %>
-
+      <div class="actions">
+        <%= f.submit "登録", class: "btn btn-success my-2" %>
+      </div>
+    <% end %>
+  </div>
 </div>

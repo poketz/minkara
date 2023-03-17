@@ -1,30 +1,23 @@
 <div class="container">
-  <h2>Log in</h2>
-  
-  <%= form_with model: @user, url: user_session_path do |f| %>
-    <%= render 'users/shared/flash_message' %>
-  
-    <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  <div class="col-10 col-md-7 col-lg-5 mx-auto border rounded bg-light">
+    <div class="d-flex justify-content-between align-items-end mx-md-3">
+      <h4 class="mt-4 mb-0">ログイン</h4>
+      <span class="">登録がまだの方は<%= render "users/shared/links" %></span>
     </div>
-  
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
-    </div>
-  
-    <% if devise_mapping.rememberable? %>
-      <div class="field">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+
+    <%= form_with model: @user, url: user_session_path, class: "my-4 mx-md-3" do |f| %>
+      <%= render 'users/shared/flash_message' %>
+      <div class="form-group">
+          <%= f.label :name, "ユーザーネーム" %>
+          <%= f.text_field :name, autocomplete: "off", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, "パスワード" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "ログイン", class: "btn btn-success my-2" %>
       </div>
     <% end %>
-  
-    <div class="actions">
-      <%= f.submit "Log in" %>
-    </div>
-  <% end %>
-  
-  <%= render "users/shared/links" %>
+  </div>
 </div>
