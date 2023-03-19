@@ -25,6 +25,12 @@ class PostsController < ApplicationController
   end
 
   def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to user_path(current_user.id), success: "投稿者コメントを変更しました。"
+    else
+      render 'users/show'
+    end
   end
 
   def destroy

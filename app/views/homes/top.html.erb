@@ -50,6 +50,7 @@
       <div class="d-flex align-items-center mb-3">
         <%= image_tag 'ranking.png', size: '45x45' %>
         <h4 class="mb-0">今週のいいねランキング</h4>
+        <span class="pl-3 ">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
       </div>
       <% @week_post_like_ranks.each do |pos| %>
         <div class="border p-4 mt-2 position-relative">

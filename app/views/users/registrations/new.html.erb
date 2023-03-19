@@ -4,7 +4,7 @@
       <h4 class="mt-4 mb-0">新規登録</h4>
       <span class="">登録がお済の方は<%= render "users/shared/links" %></span>
     </div>
-    
+
     <%= form_with model: @user, url: user_registration_path, class: "my-4 mx-md-5" do |f| %>
       <%= render "shared/error_messages", model: resource %>
       <div class="form-group">
@@ -48,16 +48,14 @@
 
       <div class="form-group">
         <%= f.label :prefecture, "都道府県" %>
-        <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, class: "form-control" %>
+        <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, {},{ class: "form-control"} %>
       </div>
 
       <div class="form-group">
         <%= f.label :birthday, "生年月日" %>
-        <%= f.date_select(
-          :birthday,
-          start_year: 1930,
-          end_year: Time.now.year,
-          default: Date.new(1989, 1, 1)) %>
+        <div>
+          <%= f.date_select :birthday, { start_year: 1930, end_year: Time.now.year, default: Date.new(1989, 1, 1) }, { class: "form-control-date"} %>
+        </div>
       </div>
 
       <div class="form-group">
