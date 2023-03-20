@@ -2,6 +2,6 @@
   <div id="flash_message"><%= render 'shared/flash_message' %></div>
   <div id="comments-error"><%= render 'shared/error_messages', model: @post_comment %></div>
 
-  <%= f.text_area :body, id: 'post_comment' %>
-  <div><%= f.submit 'コメントする' %></div>
+  <%= f.text_area :body, id: 'post_comment', class: "form-control" %>
+  <%= f.submit 'コメントする', class: "btn btn-primary mt-3" %>
 <% end %>

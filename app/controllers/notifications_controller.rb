@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
      @notifications = current_user.notifications.order(created_at: :desc).page(params[:page]).per(20)
   end
@@ -12,7 +12,7 @@ class NotificationsController < ApplicationController
     end
     redirect_to transition_path(notification)
   end
-  
+
   def read_all
     current_user.notifications.update_all(read: true)
     redirect_to user_notifications_path(current_user.id)

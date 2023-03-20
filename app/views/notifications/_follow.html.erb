@@ -1,4 +1,4 @@
-<%= image_tag notification.user.get_profile_image(75, 75) %>
+<%= image_tag notification.subject.follower.get_profile_image(75, 75) %>
 <%=  notification.subject.follower.name %> があなたをフォローしました
 <div class="text-right" >
   <%= l notification.created_at, format: :short %>

@@ -1,4 +1,5 @@
 class HomesController < ApplicationController
+  
   def top
     @posts = Post.order("created_at DESC").limit(20)
     # 週間ランキング
