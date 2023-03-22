@@ -1,8 +1,8 @@
-<div class="container ">
+<div class="container col-8 justify-content-center">
   <h4 class="mb-4">リクエスト履歴</h4>
   <%= render "users/shared/flash_message" %>
 
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs nav-fill" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="item1-tab" data-toggle="tab" href="#item1" role="tab" aria-controls="item1" aria-selected="true">受けたリクエスト</a>
     </li>
@@ -11,12 +11,13 @@
     </li>
   </ul>
 
-  <div class="tab-content">
+  <div class="tab-content border-top-0 border rounded-bottom bg-light">
+    
     <div class="tab-pane fade show active" id="item1" role="tabpanel" aria-labelledby="item1-tab">
       <% if @passive_requests.present? %>
         <% @passive_requests.each do |request| %>
-          <div class="col-10 mx-auto">
-            <div class="border p-4 mt-2">
+          
+            <div class="p-4 mt-2 request-field">
               <div class="row mx-0 justify-content-between ">
                 <div class="h6">
                    <%= link_to request.requester.name, user_path(request.requester_id) %> からのリクエスト
@@ -33,38 +34,37 @@
                 </div>
               </div>
             </div>
-          </div>
+          
         <% end %>
       <% else %>
-        リクエストはありません。
+        <div class="p-5">リクエストはありません。</div>
       <% end %>
     </div>
     <div class="tab-pane fade" id="item2" role="tabpanel" aria-labelledby="item2-tab">
       <% if @active_requests.present? %>
         <% @active_requests.each do |request| %>
-          <div class="col-10 mx-auto">
-            <div class="border p-4 mt-2">
+          
+            <div class="p-4 request-field">
               <div class="row mx-0 justify-content-between ">
                 <div class="h6">
                    <%= link_to request.requested.name, user_path(request.requested_id) %> へのリクエスト
                 </div>
                 <div><%= request.created_at.strftime('%Y/%m/%d') %></div>
               </div>
-              <div class="row mx-0 justify-content-between">
+              <div class="row mx-0 justify-content-between align-items-end">
                 <div>
-                  <div><%= request.song.song_name %> / <%= request.song.artist_name %></div>
-                  <div><%= request.body %></div>
+                  <div class="font-weight-bold"><%= request.song.song_name %> / <%= request.song.artist_name %></div>
+                  <div class="mt-2"><%= request.body %></div>
                 </div>
                 <div>
-                  <%= button_to "削除", user_request_path(params[:user_id], request.id), method: :delete, class: "btn btn-danger", data: {confirm: "本当に削除しますか？"}%>
+                  <%= button_to "削除", user_request_path(params[:user_id], request.id), method: :delete, class: "btn btn-outline-danger", data: {confirm: "本当に削除しますか？"}%>
                 </div>
               </div>
-              <div><%= request.body %></div>
             </div>
-          </div>
+          
         <% end %>
       <% else %>
-        リクエストはありません。
+        <div class="p-5">リクエストはありません。</div>
       <% end %>
     </div>
   </div>

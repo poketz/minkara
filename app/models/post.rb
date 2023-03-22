@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   belongs_to :song
 
   mount_uploader :audio, AudioUploader
+  validates :audio, presence: true
 
   def self.search(search, word)
     # キーワード検索からユーザーを特定
@@ -21,7 +22,7 @@ class Post < ApplicationRecord
     end
 
     # 曲のidに合致する投稿を抽出
-    Post.where(song_id: @songs.ids)
+    Post.where(song_id: @songs.ids).order("created_at DESC")
   end
 
   # 同じ歌手の投稿から自分の投稿、表示中の投稿、いいね済を除外しいいねが多い順に並べる

@@ -18,4 +18,3 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-//= require audiojs

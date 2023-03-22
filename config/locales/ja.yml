@@ -57,7 +57,21 @@ ja:
         
         
   activerecord:
+    models:
+      post: "投稿"
+      song: "楽曲"
+    attributes:
+      post:
+        audio: "音声ファイル"
+      song: "楽曲"
     errors:
+      models:
+        song:
+          attributes:
+            artist_name: 
+              format: '歌手名%{message}'
+            song_name: 
+              format: '%曲名{message}'
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:

@@ -5,19 +5,17 @@
   <% if params[:id] == current_user.id.to_s %>
 
     <!--マイページ-->
-    <div class="mt-4 row mx-0 bg-light rounded p-4">
+    <div class="mt-4 row mx-0 bg-light border-primary rounded p-4 shadow col-11 mx-auto">
       <div>
-        <%= image_tag @user.get_profile_image(150, 150), class: "mr-3 border rounded-circle" %>
+        <%= image_tag @user.get_profile_image(150, 150), class: "mr-3 rounded-circle" %>
       </div>
       <div class="col-lg-2 col-10 ">
         <h5 class=""><%= @user.name %> さん</h5>
-
         <div class="  p-3  mt-4 border  rounded-sm bg-white">
           性別：<%= @user.gender_i18n %><br>
           年齢：<%= (Date.today.strftime('%Y%m%d').to_i - @user.birthday.strftime('%Y%m%d').to_i) / 10000 %>歳<br>
           地域：<%= @user.prefecture_i18n %>
         </div>
-
       </div>
       <div class="col-lg-7 ml-3">
         <div class="border rounded-lg p-4 bg-white"><%= @user.introduction %></div>
@@ -50,7 +48,7 @@
                         <% if @active_users.exists? %>
                           <% @active_users.each do |user| %>
                             <tr class="position-relative align-middle">
-                              <td><%= image_tag user.get_profile_image(75,75) %></td>
+                              <td><%= image_tag user.get_profile_image(75,75), class: "rounded-circle" %></td>
                               <!-- stretched-linkで枠全体をリンクに-->
                               <td class="align-middle">
                                 <%= link_to user_path(user.id), class: "stretched-link text-decoration-none text-dark" do %>
@@ -87,7 +85,7 @@
                         <% if @passive_users.exists? %>
                           <% @passive_users.each do |user| %>
                             <tr class="position-relative align-middle">
-                              <td><%= image_tag user.get_profile_image(75,75) %></td>
+                              <td><%= image_tag user.get_profile_image(75,75), class: "rounded-circle" %></td>
                               <!-- stretched-linkで枠全体をリンクに-->
                               <td class="align-middle">
                                 <%= link_to user_path(user.id), class: "stretched-link text-decoration-none text-dark" do %>
@@ -114,23 +112,23 @@
           </div>
           <div>
             <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary" do %>
-              <%= icon("fas", "gears") %>
+              <%= icon("fas", "user-cog") %>
             <% end %>
           </div>
           <div>
             <%= link_to new_post_path, class: "btn btn-lg btn-outline-danger" do %>
-              <%= icon("fas", "cloud-arrow-up") %> <span>新規投稿</span>
+              <%= icon("fas", "cloud-upload-alt") %> <span>新規投稿</span>
             <% end %>
           </div>
         </div>
       </div>
     </div>
 
-    <h4 class="mt-4 mb-3">投稿一覧</h4>
+    <h5 class="mt-5 mb-3 col-10 mx-auto">投稿一覧</h5>
     <% @posts.each do |pos| %>
-      <div class="card-wrapper">
+      <div class="card-wrapper col-10 mx-auto">
         <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
-          <div class="border rounded p-4 pb-5 mt-2">
+          <div class=" shadow bg-light rounded p-4 pb-5 mt-3 ">
             <div class="row mx-0 justify-content-between ">
               <div class="h6">
                 <span class="font-weight-bold"><%= pos.song.song_name %> / <%= pos.song.artist_name %></span>
@@ -140,9 +138,9 @@
             <%= pos.poster_comment %><br>
           </div>
         <% end %>
-  
+
         <!-- いいね -->
-        <div class="favorite-link">
+        <div class="favorite-link ml-3">
           <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" >いいね <%= pos.likes.count %></a>
           <span class="pl-3">コメント <%= pos.post_comments.count %></span>
         </div>
@@ -156,7 +154,7 @@
                 </button>
               </div>
               <div class="modal-body">
-  
+
                 <% pos.likes.each do |like| %>
                   <%= link_to user_path(like.user_id) do %>
                     <%= like.user.name %>
@@ -170,11 +168,11 @@
             </div>
           </div>
         </div>
-  
+
         <!-- コメント編集 -->
-        <div class="config-link">
+        <div class="config-link mr-3">
           <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary">編集</a>
-          <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger" %>
+          <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "本当に削除しますか？"} %>
         </div>
         <div class="modal" id="configModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -188,7 +186,7 @@
               <div class="modal-body">
                 <%= form_with model: pos , url: post_path(pos.id) do |f| %>
                   <%= f.text_area :poster_comment, class: "form-control" %>
-                  <%= f.submit "変更", class: "btn btn-primary" %>
+                  <%= f.submit "変更", class: "btn btn-primary mt-3" %>
                 <% end %>
               </div>
               <div class="modal-footer">
@@ -197,15 +195,15 @@
             </div>
           </div>
         </div>
-  
+
       </div>
     <% end %>
 
   <!--他のユーザーのページ-->
   <% else %>
-    <div class="mt-4 row col-10 mx-auto justify-content-center  bg-light rounded p-4">
+    <div class="mt-4 row col-10 mx-auto justify-content-center  bg-light shadow rounded p-4">
       <div>
-        <%= image_tag @user.get_profile_image(150, 150), class: "mr-3 border rounded-circle" %>
+        <%= image_tag @user.get_profile_image(150, 150), class: "mr-3  rounded-circle" %>
       </div>
       <div class="col-lg-3 col-10 ">
         <h5 class=""><%= @user.name %> さん</h5>
@@ -248,7 +246,7 @@
                         <% if @active_users.exists? %>
                           <% @active_users.each do |user| %>
                             <tr class="position-relative align-middle">
-                              <td><%= image_tag user.get_profile_image(75,75) %></td>
+                              <td><%= image_tag user.get_profile_image(75,75), class: "rounded-circle" %></td>
                               <!-- stretched-linkで枠全体をリンクに-->
                               <td class="align-middle">
                                 <%= link_to user_path(user.id), class: "stretched-link text-decoration-none text-dark" do %>
@@ -285,7 +283,7 @@
                         <% if @passive_users.exists? %>
                           <% @passive_users.each do |user| %>
                             <tr class="position-relative align-middle">
-                              <td><%= image_tag user.get_profile_image(75,75) %></td>
+                              <td><%= image_tag user.get_profile_image(75,75), class: "rounded-circle" %></td>
                               <!-- stretched-linkで枠全体をリンクに-->
                               <td class="align-middle">
                                 <%= link_to user_path(user.id), class: "stretched-link text-decoration-none text-dark" do %>
@@ -355,11 +353,11 @@
         </div>
       </div>
     </div>
-    <h4 class="mt-4 mb-3 col-10 mx-auto">投稿一覧</h4>
+    <h5 class="mt-5 mb-3 col-10 mx-auto">投稿一覧</h5>
     <% @posts.each do |pos| %>
       <div class="mx-auto col-10">
         <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
-          <div class="border p-4 mt-2">
+          <div class="shadow bg-light p-4 mt-3">
             <div class="row mx-0 justify-content-between ">
               <div class="h6">
                 <span class="font-weight-bold"><%= pos.song.song_name %> / <%= pos.song.artist_name %></span>

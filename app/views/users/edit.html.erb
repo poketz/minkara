@@ -33,16 +33,14 @@
 
         <div class="form-group">
           <%= f.label :prefecture, "都道府県" %>
-          <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, class: "form-control" %>
+          <%= f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, {}, class: "form-control" %>
         </div>
 
         <div class="form-group">
           <%= f.label :birthday, "生年月日" %>
-          <%= f.date_select(
-            :birthday,
-            start_year: 1930,
-            end_year: Time.now.year,
-            default: Date.new(1989, 1, 1)) %>
+          <div>
+            <%= f.date_select :birthday, { start_year: 1930, end_year: Time.now.year, default: Date.new(1989, 1, 1) }, class: "form-control-date" %>
+          </div>
         </div>
 
         <div class="form-group">
@@ -50,8 +48,8 @@
           <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit "変更", class: "btn btn-success my-2" %>
+        <div class="d-flex justify-content-center">
+          <%= f.submit "変更する", class: "btn btn-success mt-4 mb-3 px-5" %>
         </div>
       <% end %>
     </div>

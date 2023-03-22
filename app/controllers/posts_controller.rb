@@ -14,13 +14,13 @@ class PostsController < ApplicationController
     if song.present?
       @post.song_id = song.id
     else
-      song =  Song.create!(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
+      song =  Song.create(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
       @post.song_id = song.id
     end
     if @post.save
       redirect_to user_path(current_user.id)
     else
-      render 'show'
+      render 'new'
     end
   end
 
@@ -34,6 +34,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    pos = Post.find(params[:id])
+    pos.destroy
+    redirect_to user_path(current_user.id), success: "投稿を削除しました。"
   end
 
   def show
@@ -45,7 +48,7 @@ class PostsController < ApplicationController
 
   def search
 
-      @posts = Post.search(params[:search], params[:word])
+      @posts = Post.search(params[:search], params[:word]).page(params[:page]).per(10)
       if @posts.count != 0
         flash.now[:primary] = "#{@posts.count}件の投稿が見つかりました。"
       else
