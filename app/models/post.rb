@@ -2,10 +2,11 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   belongs_to :user
-  belongs_to :song
+  # optipnal: trueで新規投稿時にsong_idのnilを許可
+  belongs_to :song, optional: true
 
   mount_uploader :audio, AudioUploader
-  validates :audio, presence: true
+  validates :audio, presence: { message: "を選択してください" }
 
   def self.search(search, word)
     # キーワード検索からユーザーを特定

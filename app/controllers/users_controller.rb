@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(current_user.id), success: "ユーザー情報を変更しました"
     else
-       render "edit"
+      render "edit"
     end
   end
 
@@ -41,11 +41,11 @@ class UsersController < ApplicationController
       @users = User.none
     end
   end
-  
+
   private
-  
+
   def user_params
-     params.require(:user).permit(:name, :email, :password, :password_confirmation, 
-                                  :gender, :prefecture, :birthday, :profile_image)
+     params.require(:user).permit(:name, :email, :password, :password_confirmation,
+                                  :gender, :prefecture, :birthday, :profile_image, :introduction)
   end
 end

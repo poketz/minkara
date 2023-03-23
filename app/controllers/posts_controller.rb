@@ -14,8 +14,8 @@ class PostsController < ApplicationController
     if song.present?
       @post.song_id = song.id
     else
-      song =  Song.create(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
-      @post.song_id = song.id
+      @song =  Song.create(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
+      @post.song_id = @song.id
     end
     if @post.save
       redirect_to user_path(current_user.id)

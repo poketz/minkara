@@ -18,7 +18,9 @@
         </div>
       </div>
       <div class="col-lg-7 ml-3">
-        <div class="border rounded-lg p-4 bg-white"><%= @user.introduction %></div>
+        <div class="border rounded-lg p-4 bg-white">
+          <%= @user.introduction %> （<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）
+        </div>
         <div class="row justify-content-around  align-items-center mt-4">
           <div>
             <div class="pl-3">
@@ -32,6 +34,28 @@
               </a>
             </div>
           </div>
+            <!-- 自己紹介モーダル -->
+            <div class="modal" id="introModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">自己紹介文の編集</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <%= form_with model: @user, url: user_path(@user.id) do |f| %>
+                      <%= f.text_area :introduction, class: "form-control" %>
+                      <%= f.submit "変更", class: "btn btn-primary mt-3" %>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- フォローモーダル -->
             <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -141,8 +165,8 @@
 
         <!-- いいね -->
         <div class="favorite-link ml-3">
-          <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" >いいね <%= pos.likes.count %></a>
-          <span class="pl-3">コメント <%= pos.post_comments.count %></span>
+          <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" ><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></a>
+          <span class="pl-3"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
         </div>
         <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -366,7 +390,7 @@
             </div>
             <%= pos.poster_comment %>
             <div class="pt-2">
-              いいね <%= pos.likes.count %><span class="pl-4">コメント <%= pos.post_comments.count %></span>
+              <span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
             </div>
           </div>
         <% end %>

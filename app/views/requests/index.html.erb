@@ -1,5 +1,5 @@
 <div class="container col-8 justify-content-center">
-  <h4 class="mb-4">リクエスト履歴</h4>
+  <h4 class="mb-5">リクエスト履歴</h4>
   <%= render "users/shared/flash_message" %>
 
   <ul class="nav nav-tabs nav-fill" role="tablist">
@@ -11,7 +11,7 @@
     </li>
   </ul>
 
-  <div class="tab-content border-top-0 border rounded-bottom bg-light">
+  <div class="tab-content border-top-0 border rounded-bottom bg-light shadow">
     
     <div class="tab-pane fade show active" id="item1" role="tabpanel" aria-labelledby="item1-tab">
       <% if @passive_requests.present? %>

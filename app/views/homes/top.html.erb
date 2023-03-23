@@ -41,7 +41,7 @@
           </div>
           <div>
             <%= pos.user.name %> さん
-            <span class="pl-4">いいね <%= pos.likes.count %></span>
+            <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
           </div>
         </div>
       <% end %>
@@ -52,21 +52,25 @@
         <h4 class="mb-0">今週のいいねランキング</h4>
         <span class="pl-3 ">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
       </div>
-      <% @week_post_like_ranks.each do |pos| %>
-        <div class="border p-4 mt-2 position-relative rounded bg-light">
-          <div class="row mx-0 justify-content-between ">
-            <div class="h6">
-              <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
-                <%= pos.song.song_name %> /
-                <%= pos.song.artist_name %>
-              <% end %>
+      <% @week_post_like_ranks.each.with_index(1) do |pos, i| %>
+        <div class="border d-flex p-4 mt-2 position-relative rounded bg-light">
+          <h3 class="d-inline-block"><%= i %></h3>
+          <div class="ml-3">
+            <div class="row mx-0 justify-content-between ">
+              <div class="h6">
+                <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
+                  <%= pos.song.song_name %> /
+                  <%= pos.song.artist_name %>
+                <% end %>
+              </div>
+              <div class="pl-4"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
             </div>
-            <div class="pl-4"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+            <div>
+              <%= pos.user.name %> さん
+              <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
+            </div>
           </div>
-          <div>
-            <%= pos.user.name %> さん
-            <span class="pl-4">いいね <%= pos.likes.count %></span>
-          </div>
+          
         </div>
       <% end %>
     </div>

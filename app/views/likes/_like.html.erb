@@ -1,13 +1,13 @@
 <% if @post.likes.exists?(user_id: current_user.id) %>
-  <p>
-    <%= link_to post_likes_path(@post), method: :delete, remote: true do %>
-      ♥<%= @post.likes.count %> いいね
+
+    <%= link_to post_likes_path(@post), method: :delete, remote: true, class: "btn btn-outline-danger rounded-lg" do %>
+      <span class="pr-2"><%= icon("fas", "heart") %></span><%= @post.likes.count %>
     <% end %>
-  </p>
+
   <% else %>
-  <p>
-    <%= link_to post_likes_path(@post), method: :post, remote: true do %>
-      ♡<%= @post.likes.count %> いいね
+  
+    <%= link_to post_likes_path(@post), method: :post, remote: true, class: "btn btn-outline-danger rounded-lg" do %>
+      <span class="pr-2"><%= icon("far", "heart") %></span><%= @post.likes.count %> 
     <% end %>
-  </p>
+  
 <% end %>

@@ -1,9 +1,11 @@
 <div class="container">
+
+  <h4 class="d-inline-block ml-3">通知一覧</h4>
   <% if @notifications.present? %>
-    <%= button_to "すべて既読にする", read_all_user_notifications_path(current_user.id), class: "btn btn-primary", method: :patch %>
+    <%= link_to "すべて既読にする", read_all_user_notifications_path(current_user.id), class: "btn btn-primary btn-sm mt-3 mb-4 ml-4", method: :patch, data: { confirm: "すべての通知を既読にしますか？" } %>
     <% @notifications.each do |notification| %>
-      <%= link_to read_user_notification_path(current_user.id, notification), class: "text-dark", method: :patch do %>
-        <div class="border-bottom text-decoration-none <%= 'bg-light text-secondary' if notification.read? %>">
+      <%= link_to read_user_notification_path(current_user.id, notification), class: "text-dark text-decoration-none", method: :patch do %>
+        <div class="border-bottom py-3 px-4 <%= 'bg-light text-secondary' if notification.read? %>">
           <%= render "#{notification.action}", notification: notification %>
         </div>
       <% end %>

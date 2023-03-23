@@ -1,5 +1,9 @@
-<%= image_tag notification.subject.follower.get_profile_image(75, 75) %>
-<%=  notification.subject.follower.name %> があなたをフォローしました
-<div class="text-right" >
-  <%= l notification.created_at, format: :short %>
+<div class="d-flex">
+  <%= image_tag notification.subject.follower.get_profile_image(75, 75), class: "rounded-circle mr-3" %>
+  <div class="align-self-center">
+    <%=  notification.subject.follower.name %> があなたをフォローしました
+  </div>
+  <div class="ml-auto align-self-end">
+    <%= l notification.created_at, format: :short %>
+  </div>
 </div>

@@ -19,6 +19,9 @@ class User < ApplicationRecord
   has_many :followings, through: :active_follows, source: :followee
    #フォロワー一覧を表示するための記述
   has_many :followers, through: :passive_follows, source: :follower
+  
+  validates :name, presence: :true
+  validates :prefecture, exclusion: { in: ["please_select"] }
 
   enum gender: { male: 0, female: 1, other: 2 }
   enum prefecture: {
