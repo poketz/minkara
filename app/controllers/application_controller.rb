@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     root_path
   end
-  
+
   def guest_check
     if current_user == User.find_by(email: 'guest@example.com')
-      redirect_to root_path, notice: "このページを見るには会員登録が必要です。"
+      redirect_to user_path(current_user.id), alert: "このページを閲覧するには会員登録が必要です。"
     end
   end
 

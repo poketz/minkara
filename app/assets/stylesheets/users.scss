@@ -2,29 +2,3 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.field_with_errors {
-  display: contents;
-  // input {
-  //   @extend .is-invalid;
-  // }
-}
-
-.favorite-link {
-  position: absolute;
-  bottom: 10px;
-  left: 25px;
-  padding-bottom: 10px;
-  z-index: 50;
-}
-
-.config-link {
-  position: absolute;
-  bottom: 10px;
-  right: 25px;
-  padding-bottom: 10px;
-  z-index: 50;
-}
-
-.card-wrapper {
-  position: relative;
-}

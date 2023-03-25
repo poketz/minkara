@@ -4,10 +4,10 @@
   <%= image_tag 'karaoke.jpg', class: 'col-lg-7 px-0' %>
   <div class="col-lg-5 bg-dark text-white text-center d-flex align-items-center justify-content-center">
     <div>
-      <div class="pb-5">
+      <div class="pb-md-5 pb-4 pt-4 pt-lg-0">
         <h1 class="theme">歌ってつながる<br>コミュニティ</h1>
       </div>
-      <div>
+      <div class="pb-4 pb-lg-0">
         <p>ぽすカラは音楽をメインにしたコミュニティサイトです。</p>
         <p>好きな曲を歌ってどんどん投稿してみましょう！</p>
         <p>ユーザーをフォローし合ってお互いの投稿を聴いたり、</p>
@@ -23,21 +23,20 @@
   </div>
 
   <div class="row mt-5 justify-content-around">
-    <div class="col-lg-6">
+    <div class="col-xl-6 col-lg-10">
       <div class="d-flex align-items-center mb-3">
         <%= image_tag 'new.svg', size: '45x45', class: "pr-1"%>
         <h4 class="mb-0">新着投稿</h4>
       </div>
       <% @posts.each do |pos| %>
         <div class="border p-4 mt-2 position-relative rounded bg-light">
-          <div class="row mx-0 justify-content-between ">
+          <div class="row mx-0 justify-content-between flex-column flex-md-row">
             <div class="h6">
               <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
-                <%= pos.song.song_name %> /
-                <%= pos.song.artist_name %>
+                <%= pos.song.song_name %> / <%= pos.song.artist_name %>
               <% end %>
             </div>
-            <div class="pl-4"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+            <div class="pl-md-4 pl-0 pb-md-0 pb-2"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
           </div>
           <div>
             <%= pos.user.name %> さん
@@ -46,31 +45,32 @@
         </div>
       <% end %>
     </div>
-    <div class="col-lg-6">
-      <div class="d-flex align-items-center mb-3">
+    <div class="col-xl-6 col-lg-10">
+      <div class="d-flex align-items-center mb-3 mt-xl-0 mt-4 flex-nowrap">
         <%= image_tag 'ranking.png', size: '45x45' %>
-        <h4 class="mb-0">今週のいいねランキング</h4>
-        <span class="pl-3 ">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
+        <div class="d-flex flex-column flex-md-row">
+          <h4 class="mb-0 flex-nowrap d-flex">今週のいいねランキング</h4>
+          <span class="pl-md-3 pl-0 pt-md-2" style="font-size: 13px">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
+        </div>
       </div>
       <% @week_post_like_ranks.each.with_index(1) do |pos, i| %>
         <div class="border d-flex p-4 mt-2 position-relative rounded bg-light">
-          <h3 class="d-inline-block"><%= i %></h3>
-          <div class="ml-3">
-            <div class="row mx-0 justify-content-between ">
+          <h3 class="mb-0 my-auto rank-index rank-<%= i %>"><%= i %></h3>
+          <div class="ml-4 w-100">
+            <div class="row mx-0 justify-content-between flex-column flex-md-row">
               <div class="h6">
                 <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
-                  <%= pos.song.song_name %> /
-                  <%= pos.song.artist_name %>
+                  <%= pos.song.song_name %> / <%= pos.song.artist_name %>
                 <% end %>
               </div>
-              <div class="pl-4"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+              <div class="pl-md-4 pl-0 pb-md-0 pb-2"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
             </div>
             <div>
               <%= pos.user.name %> さん
               <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
             </div>
           </div>
-          
+
         </div>
       <% end %>
     </div>

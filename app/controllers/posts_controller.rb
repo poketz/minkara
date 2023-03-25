@@ -18,7 +18,7 @@ class PostsController < ApplicationController
       @post.song_id = @song.id
     end
     if @post.save
-      redirect_to user_path(current_user.id)
+      redirect_to user_path(current_user.id), success: "楽曲を投稿しました。"
     else
       render 'new'
     end
@@ -47,8 +47,8 @@ class PostsController < ApplicationController
   end
 
   def search
-
-      @posts = Post.search(params[:search], params[:word]).page(params[:page]).per(10)
+      @posts = Post.search(params[:search], params[:word])
+      @post_search_result = @posts.page(params[:page]).per(10)
       if @posts.count != 0
         flash.now[:primary] = "#{@posts.count}件の投稿が見つかりました。"
       else

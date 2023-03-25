@@ -1,25 +1,25 @@
-<div class="container">
+<div class="container-xl">
  <%= render 'users/shared/flash_message' %>
 
   <!--ユーザーの判定-->
   <% if params[:id] == current_user.id.to_s %>
 
     <!--マイページ-->
-    <div class="mt-4 row mx-0 bg-light border-primary rounded p-4 shadow col-11 mx-auto">
+    <div class="mt-4 row mx-0 bg-light border-primary rounded p-4 shadow col-lg-11 mx-auto">
       <div>
         <%= image_tag @user.get_profile_image(150, 150), class: "mr-3 rounded-circle" %>
       </div>
-      <div class="col-lg-2 col-10 ">
+      <div class="col-lg-2 col-md-3 col-6">
         <h5 class=""><%= @user.name %> さん</h5>
-        <div class="  p-3  mt-4 border  rounded-sm bg-white">
+        <div class="p-3 mt-4 border rounded-sm bg-white">
           性別：<%= @user.gender_i18n %><br>
           年齢：<%= (Date.today.strftime('%Y%m%d').to_i - @user.birthday.strftime('%Y%m%d').to_i) / 10000 %>歳<br>
           地域：<%= @user.prefecture_i18n %>
         </div>
       </div>
-      <div class="col-lg-7 ml-3">
-        <div class="border rounded-lg p-4 bg-white">
-          <%= @user.introduction %> （<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）
+      <div class="col-lg-7 col-md-6 col-12 ml-lg-3">
+        <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0">
+          <%= @user.introduction %> <% unless @user.id == 7 %>（<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）<% end %>
         </div>
         <div class="row justify-content-around  align-items-center mt-4">
           <div>
@@ -147,89 +147,94 @@
         </div>
       </div>
     </div>
-
-    <h5 class="mt-5 mb-3 col-10 mx-auto">投稿一覧</h5>
-    <% @posts.each do |pos| %>
-      <div class="card-wrapper col-10 mx-auto">
-        <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
-          <div class=" shadow bg-light rounded p-4 pb-5 mt-3 ">
-            <div class="row mx-0 justify-content-between ">
-              <div class="h6">
-                <span class="font-weight-bold"><%= pos.song.song_name %> / <%= pos.song.artist_name %></span>
+    <% unless @user.id == 7 %>
+      <h5 class="mt-5 mb-3 col-lg-10 mx-auto">投稿一覧</h5>
+      <% @posts.each do |pos| %>
+        <div class="card-wrapper col-lg-10 mx-auto">
+          <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
+            <div class="shadow bg-light rounded p-4 pb-5 mt-3 ">
+              <div class="row mx-0 justify-content-between ">
+                <div class="h6">
+                  <span class="font-weight-bold"><%= pos.song.song_name %> / <%= pos.song.artist_name %></span>
+                </div>
+                <div><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
               </div>
-              <div><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+              <%= pos.poster_comment %><br>
             </div>
-            <%= pos.poster_comment %><br>
+          <% end %>
+  
+          <!-- いいね -->
+          <div class="favorite-link ml-3">
+            <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" ><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></a>
+            <span class="pl-3"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
           </div>
-        <% end %>
-
-        <!-- いいね -->
-        <div class="favorite-link ml-3">
-          <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" ><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></a>
-          <span class="pl-3"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
-        </div>
-        <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">いいね履歴</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-
-                <% pos.likes.each do |like| %>
-                  <%= link_to user_path(like.user_id) do %>
-                    <%= like.user.name %>
+          <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">いいね履歴</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+  
+                  <% pos.likes.each do |like| %>
+                    <%= link_to user_path(like.user_id) do %>
+                      <%= like.user.name %>
+                    <% end %>
+                    <%= like.created_at.strftime('%Y/%m/%d') %>
                   <% end %>
-                  <%= like.created_at.strftime('%Y/%m/%d') %>
-                <% end %>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- コメント編集 -->
-        <div class="config-link mr-3">
-          <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary">編集</a>
-          <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "本当に削除しますか？"} %>
-        </div>
-        <div class="modal" id="configModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">コメント編集</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <%= form_with model: pos , url: post_path(pos.id) do |f| %>
-                  <%= f.text_area :poster_comment, class: "form-control" %>
-                  <%= f.submit "変更", class: "btn btn-primary mt-3" %>
-                <% end %>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
               </div>
             </div>
           </div>
+  
+          <!-- コメント編集 -->
+          <div class="config-link mr-3">
+            <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary">編集</a>
+            <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "本当に削除しますか？"} %>
+          </div>
+          <div class="modal" id="configModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">コメント編集</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <%= form_with model: pos , url: post_path(pos.id) do |f| %>
+                    <%= f.text_area :poster_comment, class: "form-control" %>
+                    <%= f.submit "変更", class: "btn btn-primary mt-3" %>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
         </div>
-
-      </div>
+      <% end %>
+    <!--ゲストユーザーのページ-->
+    <% else %>
+      <h5 class="mt-5 mb-3 font-weight-bold">ゲストユーザーとしてログイン中です。</h5>
+      <p>ゲストユーザーでは投稿の閲覧と投稿・ユーザー検索のみ可能です。<br>
+          気に入った投稿を見つけたら会員登録してユーザーをフォローしてみましょう！</p>
     <% end %>
-
   <!--他のユーザーのページ-->
   <% else %>
-    <div class="mt-4 row col-10 mx-auto justify-content-center  bg-light shadow rounded p-4">
+    <div class="mt-4 row col-md-10 mx-auto justify-content-center  bg-light shadow rounded p-4">
       <div>
-        <%= image_tag @user.get_profile_image(150, 150), class: "mr-3  rounded-circle" %>
+        <%= image_tag @user.get_profile_image(150, 150), class: "mr-3 rounded-circle" %>
       </div>
-      <div class="col-lg-3 col-10 ">
+      <div class="col-md-3 col-6">
         <h5 class=""><%= @user.name %> さん</h5>
 
         <div class="  p-3  mt-4 border  rounded-sm bg-white">
@@ -239,8 +244,8 @@
         </div>
 
       </div>
-      <div class="col-lg-6 ml-3">
-        <div class="border rounded-lg p-4 bg-white"><%= @user.introduction %></div>
+      <div class="col-lg-6 col-md-8 col-12 ml-lg-3">
+        <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0"><%= @user.introduction %></div>
         <div class="row justify-content-around  align-items-center mt-4">
           <div>
             <div class="pl-3">
@@ -328,17 +333,19 @@
                 </div>
               </div>
             </div>
-
-          <div class="pl-4">
-            <% if current_user.following?(@user) %>
-              <%= link_to "フォロー中", user_follows_path(@user.id), class: "btn btn-outline-success", method: :delete %>
-            <% else %>
-              <%= link_to "フォローする", user_follows_path(@user.id), class: "btn btn-outline-success", method: :post %>
-            <% end %>
-          </div>
-          <div>
-            <a href="#" data-toggle="modal" data-target="#requestModal", class="btn btn-outline-primary">リクエストを送る</a>
-          </div>
+          
+          <% unless current_user.id == 7 %>
+            <div class="pl-4">
+              <% if current_user.following?(@user) %>
+                <%= link_to "フォロー中", user_follows_path(@user.id), class: "btn btn-outline-success", method: :delete %>
+              <% else %>
+                <%= link_to "フォローする", user_follows_path(@user.id), class: "btn btn-outline-success", method: :post %>
+              <% end %>
+            </div>
+            <div>
+              <a href="#" data-toggle="modal" data-target="#requestModal", class="btn btn-outline-primary">リクエストを送る</a>
+            </div>
+          <% end %>
           <!-- リクエストモーダル -->
           <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -377,9 +384,9 @@
         </div>
       </div>
     </div>
-    <h5 class="mt-5 mb-3 col-10 mx-auto">投稿一覧</h5>
+    <h5 class="mt-5 mb-3 col-md-10 mx-auto">投稿一覧</h5>
     <% @posts.each do |pos| %>
-      <div class="mx-auto col-10">
+      <div class="mx-auto col-md-10">
         <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
           <div class="shadow bg-light p-4 mt-3">
             <div class="row mx-0 justify-content-between ">
