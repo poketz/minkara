@@ -1,5 +1,5 @@
 <div class="container-xl">
- <%= render 'users/shared/flash_message' %>
+  <span class="col-11 mx-auto"><%= render 'users/shared/flash_message' %></span>
 
   <!--ユーザーの判定-->
   <% if params[:id] == current_user.id.to_s %>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="col-lg-7 col-md-6 col-12 ml-lg-3">
-        <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0">
+        <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0 text-break">
           <%= @user.introduction %> <% unless @user.id == 7 %>（<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）<% end %>
         </div>
         <div class="row justify-content-around  align-items-center mt-4">
@@ -130,19 +130,21 @@
                 </div>
               </div>
             </div>
+          <div class="pl-4 flex-row d-flex mt-3 mt-lg-0">
+            <div class="pr-3">
+              <%= link_to 'リクエスト履歴', user_requests_path(current_user.id), class: "btn btn-outline-secondary" %>
+            </div>
+            <div class="pr-3">
+              <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary" do %>
+                <%= icon("fas", "user-cog") %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to new_post_path, class: "btn btn-lg btn-outline-danger" do %>
+                <%= icon("fas", "cloud-upload-alt") %> <span>新規投稿</span>
+              <% end %>
+            </div>
 
-          <div class="pl-4">
-            <%= link_to 'リクエスト履歴', user_requests_path(current_user.id), class: "btn btn-outline-secondary" %>
-          </div>
-          <div>
-            <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary" do %>
-              <%= icon("fas", "user-cog") %>
-            <% end %>
-          </div>
-          <div>
-            <%= link_to new_post_path, class: "btn btn-lg btn-outline-danger" do %>
-              <%= icon("fas", "cloud-upload-alt") %> <span>新規投稿</span>
-            <% end %>
           </div>
         </div>
       </div>
@@ -162,11 +164,10 @@
               <%= pos.poster_comment %><br>
             </div>
           <% end %>
-  
           <!-- いいね -->
           <div class="favorite-link ml-3">
             <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" ><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></a>
-            <span class="pl-3"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
+            <span class="pl-3"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
           </div>
           <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -178,12 +179,11 @@
                   </button>
                 </div>
                 <div class="modal-body">
-  
                   <% pos.likes.each do |like| %>
-                    <%= link_to user_path(like.user_id) do %>
-                      <%= like.user.name %>
-                    <% end %>
-                    <%= like.created_at.strftime('%Y/%m/%d') %>
+                    <div class="ml-4 mb-2">
+                      <%= link_to like.user.name, user_path(like.user_id) %> さん
+                      <span class="ml-3"><%= like.created_at.strftime('%Y/%m/%d') %></span>
+                    </div>
                   <% end %>
                 </div>
                 <div class="modal-footer">
@@ -192,7 +192,6 @@
               </div>
             </div>
           </div>
-  
           <!-- コメント編集 -->
           <div class="config-link mr-3">
             <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary">編集</a>
@@ -222,12 +221,14 @@
   
         </div>
       <% end %>
+      
     <!--ゲストユーザーのページ-->
     <% else %>
       <h5 class="mt-5 mb-3 font-weight-bold">ゲストユーザーとしてログイン中です。</h5>
       <p>ゲストユーザーでは投稿の閲覧と投稿・ユーザー検索のみ可能です。<br>
           気に入った投稿を見つけたら会員登録してユーザーをフォローしてみましょう！</p>
     <% end %>
+    
   <!--他のユーザーのページ-->
   <% else %>
     <div class="mt-4 row col-md-10 mx-auto justify-content-center  bg-light shadow rounded p-4">
@@ -245,7 +246,7 @@
 
       </div>
       <div class="col-lg-6 col-md-8 col-12 ml-lg-3">
-        <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0"><%= @user.introduction %></div>
+        <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0 text-break"><%= @user.introduction %></div>
         <div class="row justify-content-around  align-items-center mt-4">
           <div>
             <div class="pl-3">
@@ -397,7 +398,7 @@
             </div>
             <%= pos.poster_comment %>
             <div class="pt-2">
-              <span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
+              <span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %><span class="pl-4"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
             </div>
           </div>
         <% end %>

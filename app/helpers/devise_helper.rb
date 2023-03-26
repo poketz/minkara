@@ -5,7 +5,7 @@ module DeviseHelper
       "danger"
     when "notice"
       "dark"
-    when "error"
+    when "danger"
       "danger"
     when "primary"
       "primary"

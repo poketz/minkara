@@ -30,6 +30,6 @@ class Post < ApplicationRecord
   def self.post_recommend(user, pos, artist_name)
     songs = Song.where(artist_name: artist_name).pluck(:id)
     like_posts = user.likes.pluck(:post_id)
-    Post.where(song_id: songs).where.not(user_id: user.id).where.not(id: pos.id).where.not(id: like_posts).sort { |a, b| b.likes.count <=> a.likes.count }
+    @posts = Post.where(song_id: songs).where.not(user_id: user.id).where.not(id: pos.id).where.not(id: like_posts).sort { |a, b| b.likes.count <=> a.likes.count }
   end
 end

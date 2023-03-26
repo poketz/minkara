@@ -40,7 +40,7 @@
           </div>
           <div>
             <%= pos.user.name %> さん
-            <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
+            <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
           </div>
         </div>
       <% end %>
@@ -53,26 +53,40 @@
           <span class="pl-md-3 pl-0 pt-md-2" style="font-size: 13px">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
         </div>
       </div>
-      <% @week_post_like_ranks.each.with_index(1) do |pos, i| %>
-        <div class="border d-flex p-4 mt-2 position-relative rounded bg-light">
-          <h3 class="mb-0 my-auto rank-index rank-<%= i %>"><%= i %></h3>
-          <div class="ml-4 w-100">
-            <div class="row mx-0 justify-content-between flex-column flex-md-row">
-              <div class="h6">
-                <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
-                  <%= pos.song.song_name %> / <%= pos.song.artist_name %>
-                <% end %>
-              </div>
-              <div class="pl-md-4 pl-0 pb-md-0 pb-2"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
-            </div>
-            <div>
-              <%= pos.user.name %> さん
-              <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("fas", "comment") %></span><%= pos.post_comments.count %></span>
-            </div>
-          </div>
+      
+      <% last_like = 0 %>
+      <% j = 1 %>
+        <% @week_post_like_ranks.each.with_index(1) do |pos, i| %>
+          <% if i == 1 %>
+            <% last_like = pos.likes.count %>
+          <% end %>
+          <!--last_likeといいね数を比べて同じなら同じ順位、違うなら次の順位表示-->
+          <% if pos.likes.count != last_like %>
+            <% j = i %>
+            <% last_like = pos.likes.count %>
+          <% else %>
+            <% last_like = pos.likes.count %>
+          <% end %>
 
-        </div>
-      <% end %>
+          <div class="border d-flex p-4 mt-2 position-relative rounded bg-light">
+            <h2 class="mb-0 my-auto rank-index rank-<%= j %>"><%= j %></h2>
+            <div class="ml-4 w-100">
+              <div class="row mx-0 justify-content-between flex-column flex-md-row">
+                <div class="h6">
+                  <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
+                    <%= pos.song.song_name %> / <%= pos.song.artist_name %>
+                  <% end %>
+                </div>
+                <div class="pl-md-4 pl-0 pb-md-0 pb-2"><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
+              </div>
+              <div>
+                <%= pos.user.name %> さん
+                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
+              </div>
+            </div>
+  
+          </div>
+        <% end %>
     </div>
   </div>
 

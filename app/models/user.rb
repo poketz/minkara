@@ -12,8 +12,6 @@ class User < ApplicationRecord
   has_many :active_follows, class_name: "Follow", foreign_key: :follower_id, dependent: :destroy
   has_many :passive_follows, class_name: "Follow", foreign_key: :followee_id, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :forum_comments, dependent: :destroy
-  has_many :forum_favorites, dependent: :destroy
 
   #フォロー一覧を表示するための記述
   has_many :followings, through: :active_follows, source: :followee
@@ -22,7 +20,8 @@ class User < ApplicationRecord
   
   validates :name, presence: :true
   validates :prefecture, exclusion: { in: ["please_select"] }
-
+  
+  enum user_status: { active: 0, out_of_servise: 1, withdrawal: 2 }
   enum gender: { male: 0, female: 1, other: 2 }
   enum prefecture: {
     please_select:0,

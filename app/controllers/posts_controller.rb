@@ -41,6 +41,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @posts = Post.post_recommend(current_user, @post, @post.song.artist_name)
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.all
     # impressionist(@post, nil, :unique => [:])

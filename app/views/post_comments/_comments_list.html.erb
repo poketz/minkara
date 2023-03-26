@@ -1,16 +1,18 @@
-<% if @post.post_comments.present? %>
+<% if @post.post_comments.exists? %>
   <div class="pb-2 pl-3 border-bottom border-primary shadow">コメント　<%= @post_comments.count %></div>
   <div class="mt-4">
     <% @post_comments.each do |comment| %>
-    <div class="mb-2 ml-3">
-      <%= image_tag comment.user.get_profile_image(40,40), class: "rounded-circle" %>
-      <span class="pl-2"><%= comment.user.name %></span>
-      <span class="pl-4"><%= comment.body %></span>
-      <span class="pl-3"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
-      <% if comment.user == current_user %>
-        <%= link_to "削除", post_post_comment_path(comment.post_id, comment.id),
-        method: :delete, remote: true, data: {confirm: "本当に削除しますか？"} %>
+    <div class="mb-2 ml-lg-3 d-flex align-items-center">
+      <%= link_to user_path(comment.user.id), class: "text-decoration-none align-self-start col-lg-3 col-4" do %>
+        <%= image_tag comment.user.get_profile_image(40,40), class: "rounded-circle" %>
+        <span class="pl-2"><%= comment.user.name %></span>
       <% end %>
+      <div class="pl-4 col-9"><%= comment.body %><span class="pl-3"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
+        <% if comment.user == current_user %>
+          <%= link_to "削除", post_post_comment_path(comment.post_id, comment.id),
+          method: :delete, remote: true, data: {confirm: "本当に削除しますか？"}, class: "ml-3 col-" %>
+        <% end %>
+      </div>
     </div>
     <% end %>
   </div>
