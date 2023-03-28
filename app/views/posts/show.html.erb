@@ -23,7 +23,7 @@
         <%= @post.poster_comment %>
       </div>
       <div class="mt-2 ml-4 d-inline-block" id="likes">
-        <% if current_user == @post.user || current_user.id == 1 %>
+        <% if current_user == @post.user || current_user.name == 'ゲスト' %>
           <span class="pr-2"><%= icon("fas", "heart") %></span><%= @post.likes.count %>
         <% else %>
           <%= render "likes/like" %>
