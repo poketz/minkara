@@ -61,7 +61,6 @@ gem "enum_help"
 gem 'cancancan'
 gem 'rails_admin'
 gem 'carrierwave'
-gem 'cloudinary'
 gem 'audiojs-rails'
 gem 'kaminari'
 gem 'font-awesome-sass'
