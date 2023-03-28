@@ -19,7 +19,7 @@
       </div>
       <div class="col-lg-7 col-md-6 col-12 ml-lg-3">
         <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0 text-break">
-          <%= @user.introduction %> <% unless @user.id == 7 %>（<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）<% end %>
+          <%= @user.introduction %> <% unless @user.id == 1 %>（<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）<% end %>
         </div>
         <div class="row justify-content-around  align-items-center mt-4">
           <div>
@@ -149,7 +149,7 @@
         </div>
       </div>
     </div>
-    <% unless @user.id == 7 %>
+    <% unless @user.id == 1 %>
       <h5 class="mt-5 mb-3 col-lg-10 mx-auto">投稿一覧</h5>
       <% @posts.each do |pos| %>
         <div class="card-wrapper col-lg-10 mx-auto">
@@ -335,7 +335,7 @@
               </div>
             </div>
           
-          <% unless current_user.id == 7 %>
+          <% unless current_user.id == 1 %>
             <div class="pl-4">
               <% if current_user.following?(@user) %>
                 <%= link_to "フォロー中", user_follows_path(@user.id), class: "btn btn-outline-success", method: :delete %>

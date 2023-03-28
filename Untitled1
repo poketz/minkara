@@ -1,3 +1,10 @@
 You need to merge "resolutions": {
   "rails_admin/@fortawesome/fontawesome-free": "^5.15.0"
 } into the existing resolutions in your package.json.
+
+### Upgrading RailsAdmin from 2.x.x to 3.x.x ###
+
+    Due to introduction of Webpack/Webpacker support, some additional dependencies and configuration will be needed.
+    Running `bin/rails g rails_admin:install` will suggest required changes, based on the current setup of your app.
+
+    For a complete list of changes, see https://github.com/railsadminteam/rails_admin/blob/master/CHANGELOG.md
