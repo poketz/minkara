@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   belongs_to :user
   # optipnal: trueで新規投稿時にsong_idのnilを許可
-  belongs_to :song, optional: true
+  belongs_to :song
 
   mount_uploader :audio, AudioUploader
   validates :audio, presence: { message: "を選択してください" }
@@ -30,6 +30,6 @@ class Post < ApplicationRecord
   def self.post_recommend(user, pos, artist_name)
     songs = Song.where(artist_name: artist_name).pluck(:id)
     like_posts = user.likes.pluck(:post_id)
-    @posts = Post.where(song_id: songs).where.not(user_id: user.id).where.not(id: pos.id).where.not(id: like_posts).sort { |a, b| b.likes.count <=> a.likes.count }
+    @posts = Post.where(song_id: songs).where.not(user_id: user.id).where.not(id: pos.id).where.not(id: like_posts).sort { |a, b| b.likes.count <=> a.likes.count }.limit(5)
   end
 end

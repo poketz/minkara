@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:search]
-  before_action :guest_check, except: [:search, :show]
+  before_action :guest_check, only: [:new]
 
   def new
     @post = Post.new
@@ -10,16 +10,18 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     # 曲が存在しているかのチェック
-    song = Song.find_by(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
-    if song.present?
-      @post.song_id = song.id
+    @song = Song.find_by(artist_name: params[:post][:artist_name], song_name: params[:post][:song_name])
+    if @song.present?
+      @post.song_id = @song.id
     else
-      @song =  Song.create(artist_name:  params[:post][:artist_name], song_name:  params[:post][:song_name])
+      @song = Song.create(artist_name: params[:post][:artist_name], song_name: params[:post][:song_name])
       @post.song_id = @song.id
     end
     if @post.save
       redirect_to user_path(current_user.id), success: "楽曲を投稿しました。"
     else
+      # PostモデルのエラーからSongモデルのアソシエーションのエラーを削除
+      @post.errors.delete(:song)
       render 'new'
     end
   end
@@ -44,24 +46,21 @@ class PostsController < ApplicationController
     @posts = Post.post_recommend(current_user, @post, @post.song.artist_name)
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.all
-    # impressionist(@post, nil, :unique => [:])
   end
 
   def search
-      @posts = Post.search(params[:search], params[:word])
-      @post_search_result = @posts.page(params[:page]).per(10)
-      if @posts.count != 0
-        flash.now[:primary] = "#{@posts.count}件の投稿が見つかりました。"
-      else
-        flash.now[:danger] = "投稿が見つかりませんでした。"
-      end
-
-
+    @posts = Post.search(params[:search], params[:word])
+    @post_search_result = @posts.page(params[:page]).per(10)
+    if @posts.count != 0
+      flash.now[:primary] = "#{@posts.count}件の投稿が見つかりました。"
+    else
+      flash.now[:danger] = "投稿が見つかりませんでした。"
+    end
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:audio, :poster_comment)
+      params.require(:post).permit(:audio, :poster_comment)
   end
 end
