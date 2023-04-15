@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:search]
   before_action :guest_check, only: [:new]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
 
   def new
     @post = Post.new
@@ -62,5 +63,12 @@ class PostsController < ApplicationController
 
   def post_params
       params.require(:post).permit(:audio, :poster_comment)
+  end
+
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to user_path(current_user.id)
+    end
   end
 end

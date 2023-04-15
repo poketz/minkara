@@ -24,8 +24,8 @@
               <% if user_signed_in? %>
                 <li class="nav-item"><%= link_to 'マイページ', user_path(current_user.id), class: "nav-link text-white" %></li>
                 <li class="nav-item">
-                  <%= link_to user_notifications_path(current_user.id), class: "nav-link text-white position-relative" do %>
-                    <span>通知一覧</span><%= render 'shared/unread_badge' %>
+                  <%= link_to user_notifications_path(current_user.id), class: "nav-link text-white" do %>
+                    <span class="position-relative">通知一覧<%= render 'shared/unread_badge' %></span>
                   <% end %>
                 </li>
                 <li class="nav-item"><%= link_to 'ユーザー検索', search_users_path, class: "nav-link text-white" %></li>

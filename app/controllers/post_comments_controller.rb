@@ -1,4 +1,6 @@
 class PostCommentsController < ApplicationController
+  before_action :is_matching_login_user, only: [:destroy]
+  
   def create
     @post = Post.find(params[:post_id])
     @post_comments = @post.post_comments.all
@@ -23,5 +25,12 @@ class PostCommentsController < ApplicationController
 
   def post_comment_params
     params.require(:post_comment).permit(:body)
+  end
+  
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to user_path(current_user.id)
+    end
   end
 end
