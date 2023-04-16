@@ -1,4 +1,4 @@
-<div class="container col-lg-6 mx-auto">
+<div class="container col-lg-7 mx-auto">
   <h4>ユーザー検索</h4>
   <%= form_with url: search_users_path, model: @posts, method: :get, class: "form-group form-inline mt-4" do |f| %>
     <%= f.text_field :word, autocomplete: "off", class: "form-control mr-3", size: 30 %>
