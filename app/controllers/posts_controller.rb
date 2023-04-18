@@ -58,12 +58,23 @@ class PostsController < ApplicationController
       flash.now[:danger] = "投稿が見つかりませんでした。"
     end
   end
+  
+  # def autocomplete_song
+  #   # params[:company]の値でUser.companyを前方一致検索、company列だけ取り出し、nilと空文字を取り除いた配列
+  #   songs = Song.by_song_like(autocomplete_params[:song_name]).pluck(:song_name).reject(&:blank?)
+  #   render json: songs
+  #   # レスポンスの例: ["てすと１会社","てすと２会社","てすと３会社"]
+  # end
 
   private
 
   def post_params
       params.require(:post).permit(:audio, :poster_comment)
   end
+  
+  # def autocomplete_params
+  #     params.permit(:song_name)
+  # end
 
   def is_matching_login_user
     user = User.find(params[:id])

@@ -64,6 +64,7 @@ gem 'carrierwave'
 gem 'audiojs-rails'
 gem 'kaminari'
 gem 'font-awesome-sass'
+gem 'jquery-ui-rails'
 
 gem 'dotenv-rails'
 

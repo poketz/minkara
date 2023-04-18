@@ -2,29 +2,33 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   belongs_to :user
-  # optipnal: trueで新規投稿時にsong_idのnilを許可
   belongs_to :song
 
   mount_uploader :audio, AudioUploader
   validates :audio, presence: { message: "を選択してください" }
 
   def self.search(search, word)
-    # キーワード検索からユーザーを特定
+    # キーワード分割
+    keywords = word.split(/[[:blank:]]+/).select(&:present?)
+    @songs = Song.all
+    # キーワード検索から楽曲を特定
     if search == "perfect_match"
-      @songs = Song.where("artist_name like? OR song_name like?","#{word}","#{word}")
+      @songs = @songs.where("artist_name like? OR song_name like?","#{word}","#{word}")
     elsif search == "forward_match"
-      @songs = Song.where("artist_name like? OR song_name like?", "#{word}%","#{word}%")
+      @songs = @songs.where("artist_name like? OR song_name like?", "#{word}%","#{word}%")
     elsif search == "backward_match"
-      @songs = Song.where("artist_name like? OR song_name like?","%#{word}","%#{word}")
+      @songs = @songs.where("artist_name like? OR song_name like?","%#{word}","%#{word}")
     elsif search == "partial_match"
-      @songs = Song.where("artist_name like? OR song_name like?","%#{word}%","%#{word}%")
-    else
-      @songs = Song.all
+      keywords.each do |keyword|
+        @songs = @songs.where("artist_name like? OR song_name like?","%#{keyword}%","%#{keyword}%")
+      end
     end
-
     # 曲のidに合致する投稿を抽出
     Post.where(song_id: @songs.ids).order("created_at DESC")
   end
+
+  # # サジェスト用の前方一致検索
+  # scope :by_song_like, -> (song) { where('song LIKE :value', { value: "#{song}%"}) }
 
   # 同じ歌手の投稿から自分の投稿、表示中の投稿、いいね済を除外しいいねが多い順に並べる
   def self.post_recommend(user, pos, artist_name)

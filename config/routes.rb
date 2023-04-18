@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   end
   resources :posts, except: [:edit, :index] do
     get 'search', on: :collection
+    # get '/autocomplete_song/:song', on: :collection, action: :autocomplete_song
     resources :post_comments, only: [:create, :destroy]
     resource :likes, only: [:create, :destroy]
   end
