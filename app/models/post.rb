@@ -9,7 +9,7 @@ class Post < ApplicationRecord
 
   def self.search(search, word)
     # キーワード分割
-    keywords = word.split(/[[:blank:]]+/).select(&:present?)
+    keywords = word&.split(/[[:blank:]]+/)&.select(&:present?)
     @songs = Song.all
     # キーワード検索から楽曲を特定
     if search == "perfect_match"
