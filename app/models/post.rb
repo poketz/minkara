@@ -36,4 +36,15 @@ class Post < ApplicationRecord
     like_posts = user.likes.pluck(:post_id)
     @posts = Post.where(song_id: songs).where.not(user_id: user.id).where.not(id: pos.id).where.not(id: like_posts).limit(5).sort { |a, b| b.likes.count <=> a.likes.count }
   end
+  
+  def self.post_create(artist_name, song_name, pos)
+    # 曲が存在しているかのチェック
+    @song = Song.find_by(artist_name: artist_name, song_name: song_name)
+    if @song.present?
+      pos.song_id = @song.id
+    else
+      @song = Song.create(artist_name: artist_name, song_name: song_name)
+      pos.song_id = @song.id
+    end
+  end
 end
