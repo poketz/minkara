@@ -1,5 +1,4 @@
 class RequestsController < ApplicationController
-  
   def index
     @passive_requests = current_user.passive_requests.all
     @active_requests = current_user.active_requests.all
@@ -15,13 +14,13 @@ class RequestsController < ApplicationController
     if song.present?
       @request.song_id = song.id
     else
-      song =  Song.create!(artist_name:  params[:request][:artist_name], song_name:  params[:request][:song_name])
+      song = Song.create!(artist_name:  params[:request][:artist_name], song_name:  params[:request][:song_name])
       @request.song_id = song.id
     end
     if @request.save
       redirect_to user_path(params[:user_id]), success: "リクエストを送信しました。"
     else
-      render 'users/show'
+      render "users/show"
     end
   end
 
@@ -30,10 +29,9 @@ class RequestsController < ApplicationController
     request.destroy
     redirect_to user_requests_path(current_user.id), notice: "リクエストを削除しました。"
   end
-  
-  private
 
-  def request_params
-    params.require(:request).permit(:body)
-  end
+  private
+    def request_params
+      params.require(:request).permit(:body)
+    end
 end

@@ -5,7 +5,7 @@
       <span class="">登録がお済の方は<%= render "users/shared/links" %></span>
     </div>
 
-    <%= form_with model: @user, url: user_registration_path, class: "my-4 mx-md-5" do |f| %>
+    <%= form_with model: @user, url: user_registration_path, class: "mt-4 mb-5 mx-md-5" do |f| %>
       <%= render "shared/error_messages", model: resource %>
       <div class="form-group">
           <%= f.label :name, "ユーザーネーム" %>
@@ -64,7 +64,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "登録", class: "btn btn-success my-2" %>
+        <%= f.submit "登録する", class: "btn btn-success btn-block mb-3 mt-5 " %>
       </div>
     <% end %>
   </div>

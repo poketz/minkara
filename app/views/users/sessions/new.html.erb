@@ -1,11 +1,11 @@
 <div class="container">
   <div class="col-10 col-md-8 col-lg-6 mx-auto border rounded bg-light">
-    <div class="d-flex justify-content-between align-items-end mx-md-5">
+    <div class="d-flex justify-content-between align-items-end mx-md-5 mx-1">
       <h4 class="mt-4 mb-0">ログイン</h4>
       <span class="">登録がまだの方は<%= render "users/shared/links" %></span>
     </div>
 
-    <%= form_with model: @user, url: user_session_path, class: "my-4 mx-md-5" do |f| %>
+    <%= form_with model: @user, url: user_session_path, class: "mt-4 mb-5 mx-md-5 mx-3" do |f| %>
       <%= render 'users/shared/flash_message' %>
       <div class="form-group">
           <%= f.label :name, "ユーザーネーム" %>
@@ -16,7 +16,7 @@
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
       </div>
       <div class="actions">
-        <%= f.submit "ログイン", class: "btn btn-success my-2" %>
+        <%= f.submit "ログイン", class: "btn btn-success my-2 mt-4 btn-block" %>
       </div>
     <% end %>
   </div>

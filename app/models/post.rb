@@ -13,14 +13,14 @@ class Post < ApplicationRecord
     @songs = Song.all
     # キーワード検索から楽曲を特定
     if search == "perfect_match"
-      @songs = @songs.where("artist_name like? OR song_name like?","#{word}","#{word}")
+      @songs = @songs.where("artist_name like? OR song_name like?", "#{word}", "#{word}")
     elsif search == "forward_match"
-      @songs = @songs.where("artist_name like? OR song_name like?", "#{word}%","#{word}%")
+      @songs = @songs.where("artist_name like? OR song_name like?", "#{word}%", "#{word}%")
     elsif search == "backward_match"
-      @songs = @songs.where("artist_name like? OR song_name like?","%#{word}","%#{word}")
+      @songs = @songs.where("artist_name like? OR song_name like?", "%#{word}", "%#{word}")
     elsif search == "partial_match"
       keywords.each do |keyword|
-        @songs = @songs.where("artist_name like? OR song_name like?","%#{keyword}%","%#{keyword}%")
+        @songs = @songs.where("artist_name like? OR song_name like?", "%#{keyword}%", "%#{keyword}%")
       end
     end
     # 曲のidに合致する投稿を抽出
@@ -36,7 +36,7 @@ class Post < ApplicationRecord
     like_posts = user.likes.pluck(:post_id)
     @posts = Post.where(song_id: songs).where.not(user_id: user.id).where.not(id: pos.id).where.not(id: like_posts).limit(5).sort { |a, b| b.likes.count <=> a.likes.count }
   end
-  
+
   def self.post_create(artist_name, song_name, pos)
     # 曲が存在しているかのチェック
     @song = Song.find_by(artist_name: artist_name, song_name: song_name)

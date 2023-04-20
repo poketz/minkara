@@ -11,16 +11,15 @@ class ApplicationController < ActionController::Base
   end
 
   def guest_check
-    if current_user == User.find_by(email: 'guest@example.com')
+    if current_user == User.find_by(email: "guest@example.com")
       redirect_to user_path(current_user.id), alert: "このページを閲覧するには会員登録が必要です。"
     end
   end
 
 
   protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(
-      :sign_up, keys: [:name, :email, :gender, :birthday, :prefecture])
-  end
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(
+        :sign_up, keys: [:name, :email, :gender, :birthday, :prefecture])
+    end
 end

@@ -5,7 +5,7 @@ class PostComment < ApplicationRecord
   belongs_to :post
   belongs_to :user
 
-  validates :body, presence: true, length: {maximum: 150}
+  validates :body, presence: true, length: { maximum: 150 }
 
   def create_notifications
     # セルフコメントは通知を新たに作成しない
