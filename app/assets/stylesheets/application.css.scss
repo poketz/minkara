@@ -30,11 +30,11 @@ header {
   min-height: 100vh;  // bodyの最小サイズをウィンドウの大きさにする
 }
 
-.nav-link {
+header .nav-link {
   position: relative;
 }
 
-.nav-link::after {
+header .nav-link::after {
   position: absolute;
   left: 0;
   content: '';
@@ -47,15 +47,15 @@ header {
   transition: transform 0.3s; /*変形の時間*/
 }
 
-.nav-link:hover::after {
+header .nav-link:hover::after {
   transform: scale(1, 1);     /*ホバー後、x軸方向に1（相対値）伸長*/
 }
 
 @media screen and (max-width:1024px) {
-  .nav-link::after {
+  header .nav-link::after {
     height: 1px;
   }
-  .nav-link:hover::after {
+  header .nav-link:hover::after {
     transform: scale(0.4, 1);     /*ホバー後、x軸方向に1（相対値）伸長*/
   }
 }
@@ -139,4 +139,10 @@ footer {
 
 .pagination {
   justify-content: center;
+}
+
+@media screen and (max-width:576px) {
+  input[type="submit"]:not(.header-search) {
+    width: 100%;
+  }
 }

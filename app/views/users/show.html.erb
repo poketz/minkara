@@ -21,15 +21,17 @@
           <%= @user.introduction %> <% unless @user.name == 'ゲスト' %>（<a href="#" data-toggle="modal" data-target="#introModal">編集</a>）<% end %>
         </div>
         <div class="row justify-content-around  align-items-center mt-4">
-          <div>
-            <div class="pl-3">
-              <a href="#" data-toggle="modal" data-target="#exampleModal", class="text-center">
-                フォロー: <%= @user.followings.count %>
+          <div class="d-flex">
+            <div class="pr-4">
+              <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-dark">
+                <span>フォロー</span>
+                <h4 class="text-center follow_count"><%= @user.followings.count %></h4>
               </a>
             </div>
-            <div class="pl-3">
-              <a href="#" data-toggle="modal" data-target="#exampleModal2", class="follow_count">
-                フォロワー: <%= @user.followers.count %>
+            <div class="">
+              <a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-dark">
+                <span>フォロワー </span>
+                <h4 class="text-center follow_count"><%= @user.followers.count %></h4>
               </a>
             </div>
           </div>
@@ -129,17 +131,17 @@
                 </div>
               </div>
             </div>
-          <div class="pl-4 flex-row d-flex mt-3 mt-lg-0">
-            <div class="pr-3">
+          <div class="pl-sm-4 flex-column flex-sm-row d-flex mt-3 mt-lg-0 px-0">
+            <div class="pr-sm-3 pb-sm-0 pb-2">
               <%= link_to 'リクエスト履歴', user_requests_path(current_user.id), class: "btn btn-outline-secondary" %>
             </div>
-            <div class="pr-3">
-              <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary" do %>
+            <div class="pr-sm-3 pb-sm-0 pb-2">
+              <%= link_to edit_user_path(current_user.id), class: "btn btn-outline-secondary btn-block" do %>
                 <%= icon("fas", "user-cog") %>
               <% end %>
             </div>
             <div>
-              <%= link_to new_post_path, class: "btn btn-lg btn-outline-danger" do %>
+              <%= link_to new_post_path, class: "btn btn-outline-danger btn-block" do %>
                 <%= icon("fas", "cloud-upload-alt") %> <span>新規投稿</span>
               <% end %>
             </div>
@@ -177,15 +179,17 @@
       <div class="col-lg-6 col-md-8 col-12 ml-lg-3">
         <div class="border rounded-lg p-4 bg-white mt-4 mt-lg-0 text-break"><%= @user.introduction %></div>
         <div class="row justify-content-around  align-items-center mt-4">
-          <div>
-            <div class="pl-3">
-              <a href="#" data-toggle="modal" data-target="#exampleModal">
-                フォロー: <%= @user.followings.count %>
+          <div class="d-flex">
+            <div class="pr-4">
+              <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-dark">
+                <span>フォロー</span>
+                <h4 class="text-center follow_count"><%= @user.followings.count %></h4>
               </a>
             </div>
-            <div class="pl-3">
-              <a href="#" data-toggle="modal" data-target="#exampleModal2">
-                フォロワー: <%= @user.followers.count %>
+            <div class="">
+              <a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-dark">
+                <span>フォロワー </span>
+                <h4 class="text-center follow_count"><%= @user.followers.count %></h4>
               </a>
             </div>
           </div>
@@ -265,15 +269,17 @@
             </div>
 
           <% unless current_user.name == 'ゲスト' %>
-            <div class="pl-4">
-              <% if current_user.following?(@user) %>
-                <%= link_to "フォロー中", user_follows_path(@user.id), class: "btn btn-outline-success", method: :delete %>
-              <% else %>
-                <%= link_to "フォローする", user_follows_path(@user.id), class: "btn btn-outline-success", method: :post %>
-              <% end %>
-            </div>
-            <div>
-              <a href="#" data-toggle="modal" data-target="#requestModal", class="btn btn-outline-primary">リクエストを送る</a>
+            <div class="pl-sm-4 flex-column flex-sm-row d-flex mt-3 mt-lg-0 px-0">
+              <div class="pr-sm-3 pb-sm-0 pb-2">
+                <% if current_user.following?(@user) %>
+                  <%= link_to "フォロー中", user_follows_path(@user.id), class: "btn btn-outline-success btn-block", method: :delete %>
+                <% else %>
+                  <%= link_to "フォローする", user_follows_path(@user.id), class: "btn btn-outline-success btn-block", method: :post %>
+                <% end %>
+              </div>
+              <div>
+                <a href="#" data-toggle="modal" data-target="#requestModal", class="btn btn-outline-primary">リクエストを送る</a>
+              </div>
             </div>
           <% end %>
           <!-- リクエストモーダル -->
