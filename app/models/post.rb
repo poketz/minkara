@@ -39,12 +39,12 @@ class Post < ApplicationRecord
 
   def self.post_create(artist_name, song_name, pos)
     # 曲が存在しているかのチェック
-    @song = Song.find_by(artist_name: artist_name, song_name: song_name)
-    if @song.present?
-      pos.song_id = @song.id
+    $song = Song.find_by(artist_name: artist_name, song_name: song_name)
+    if $song.present?
+      pos.song_id = $song.id
     else
-      @song = Song.create(artist_name: artist_name, song_name: song_name)
-      pos.song_id = @song.id
+      $song = Song.create(artist_name: artist_name, song_name: song_name)
+      pos.song_id = $song.id
     end
   end
 end

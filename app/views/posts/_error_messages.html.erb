@@ -1,10 +1,10 @@
 <% if model.errors.any? || model2&.errors&.any? %>
   <div class="alert alert-danger">
     <ul class="mb-0 list-unstyled">
-      <% model&.errors&.full_messages&.each do |msg| %>
+      <% model.errors&.full_messages&.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
-      <% model2.errors.full_messages.each do |msg| %>
+      <% model2&.errors&.full_messages&.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>

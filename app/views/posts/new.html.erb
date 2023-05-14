@@ -6,8 +6,7 @@
   著作権違反の投稿はを管理者が見つけ次第削除いたします。</p>
 
   <%= form_with model: @post, url: posts_path, class: "mt-4" do |f| %>
-    <%= render 'error_messages', model: @post, model2: @song, class: "mb-3" %>
-
+    <%= render 'error_messages', model: @post, model2: $song, class: "mb-3" %>
     <div class="form-group row ml-3">
       <%= f.label :audio, "音声ファイル", class: "col-md-2 col-3 col-form-label" %>
       <%= f.file_field :audio, accept: "audio/*", class: "form-control-file col-md-6 col-9  my-auto" %>
