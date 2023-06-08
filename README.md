@@ -1,4 +1,4 @@
-# POSカラ
+# ぽすカラ
 
 ## サイト概要
 ### サイトテーマ
@@ -20,12 +20,15 @@
 - 自分の投稿の評価やアドバイスが欲しい時
 
 ## 設計書
+- ER図　https://drive.google.com/file/d/10ZlI6Nr2U5s89XSZdXFrTMeR6DdOOOf-/view?usp=sharing
+- テーブル定義書　https://docs.google.com/spreadsheets/d/1PsVOtct6PfGK4Zfi68TaGkaSdsLZojBQ6EMJaQ_cGrg/edit?usp=sharing
+- 詳細設計書　https://docs.google.com/spreadsheets/d/15zzdmOCAjq7lOf5Y1JobrsW4uahAYes0LaARio-4tZg/edit?usp=sharing
 
 ## 実装機能リストのURL
 https://docs.google.com/spreadsheets/d/1rvat7TrIgt7cuVlCJqme_1-6haAolTpX0dlay2z1jKY/edit?usp=sharing
 
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：Linux(AmazonLinux2)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
@@ -34,7 +37,7 @@ https://docs.google.com/spreadsheets/d/1rvat7TrIgt7cuVlCJqme_1-6haAolTpX0dlay2z1
 ## 使用素材
 - Font Awesome　https://fontawesome.com/
 - icon-rainbow　https://icon-rainbow.com/
-- イラストボックス　https://www.illust-box.jp/sozai/
+- イラストボックス　https://www.illust-box.jp/
 - Pexels　https://www.pexels.com/ja-jp/
 - illustAC　https://www.ac-illust.com/
 - photoAC　https://www.photo-ac.com/
