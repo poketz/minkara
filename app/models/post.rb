@@ -39,6 +39,7 @@ class Post < ApplicationRecord
 
   def self.post_create(artist_name, song_name, pos)
     # 曲が存在しているかのチェック
+    # エラーメッセージにsongの情報を渡すために$を
     $song = Song.find_by(artist_name: artist_name, song_name: song_name)
     if $song.present?
       pos.song_id = $song.id
