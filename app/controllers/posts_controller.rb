@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to user_path(current_user.id), success: "投稿者コメントを変更しました。"
+      redirect_to user_path(current_user.id), success: "投稿曲の設定を変更しました。"
     else
       render "users/show"
     end
@@ -61,7 +61,7 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:audio, :poster_comment)
+      params.require(:post).permit(:audio, :open_range, :poster_comment)
     end
 
     # def autocomplete_params

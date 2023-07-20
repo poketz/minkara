@@ -49,23 +49,28 @@
         <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary">編集</a>
         <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "本当に削除しますか？"} %>
       </div>
+      <!--投稿曲編集モーダル-->
       <div class="modal" id="configModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">コメント編集</h5>
+              <h5 class="modal-title" id="exampleModalLabel">投稿曲の編集</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-              <%= form_with model: pos , url: post_path(pos.id) do |f| %>
-                <%= f.text_area :poster_comment, class: "form-control" %>
-                <%= f.submit "変更", class: "btn btn-primary mt-3" %>
+            <div class="modal-body mx-3">
+              <%= form_with model: pos, url: post_path(pos.id) do |f| %>
+                <div class="form-group">
+                  <%= f.label :poster_comment, "コメント", class: "col-form-label" %>
+                  <%= f.text_area :poster_comment, class: "form-control" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :open_range, "公開範囲", class: "col-form-label" %>
+                  <%= f.select :open_range, Post.open_ranges.keys.map {|k| [I18n.t("enums.post.open_range.#{k}"), k]}, {},{ class: "form-control"} %>
+                </div>
+                <%= f.submit "変更", class: "btn btn-primary my-3" %>
               <% end %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
             </div>
           </div>
         </div>
