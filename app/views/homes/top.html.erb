@@ -32,7 +32,7 @@
         <div class="border p-4 mt-2 position-relative rounded bg-light">
           <div class="row mx-0 justify-content-between flex-column flex-md-row">
             <div class="h6">
-              <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
+              <%= link_to post_show_path(pos.user_id, pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
                 <%= pos.song.song_name %> / <%= pos.song.artist_name %>
               <% end %>
             </div>
@@ -53,7 +53,7 @@
           <span class="pl-md-3 pl-0 pt-md-2" style="font-size: 13px">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
         </div>
       </div>
-      
+
       <% last_like = 0 %>
       <% j = 1 %>
       <% @week_post_like_ranks.each.with_index(1) do |pos, i| %>
@@ -73,7 +73,7 @@
             <div class="ml-4 w-100">
               <div class="row mx-0 justify-content-between flex-column flex-md-row">
                 <div class="h6">
-                  <%= link_to post_path(pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
+                  <%= link_to post_show_path(pos.user_id, pos.id), class: "text-dark text-decoration-none font-weight-bold stretched-link" do %>
                     <%= pos.song.song_name %> / <%= pos.song.artist_name %>
                   <% end %>
                 </div>
@@ -84,7 +84,7 @@
                 <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
               </div>
             </div>
-  
+
           </div>
         <% end %>
     </div>

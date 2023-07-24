@@ -57,10 +57,10 @@ ja:
     post:
       open_range:
         public: "全員に公開"
-        follower: "フォロワーだけに公開"
+        follow: "相互フォローのみ"
         private: "非公開"
 
-        
+
   activerecord:
     models:
       post: "投稿"
@@ -73,9 +73,9 @@ ja:
       models:
         song:
           attributes:
-            artist_name: 
+            artist_name:
               format: '歌手名%{message}'
-            song_name: 
+            song_name:
               format: '曲名%{message}'
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
@@ -92,7 +92,7 @@ ja:
     - 金
     - 土
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -118,7 +118,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
     month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -360,7 +360,7 @@ ja:
         bulk_link: "選択した%{model_label_plural}を削除"
       export:
         title: "%{model_label}をエクスポート"
-        menu: "エクスポート"
+        menu: "エクスポー���"
         breadcrumb: "エクスポート"
         link: "%{model_label_plural}をエクスポート"
         bulk_link: "選択した%{model_label_plural}をエクスポート"

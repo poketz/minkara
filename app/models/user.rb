@@ -74,7 +74,11 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-
+  # 相互フォロー判定
+  def self.mutual_follows?(pos_user, current_user)
+    current_user.following?(pos_user) && pos_user.following?(current_user)
+  end
+  
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64

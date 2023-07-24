@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:search]
   before_action :guest_check, only: [:new]
   before_action :is_matching_login_user, only: [:edit, :update, :destroy]
+  before_action :open_range_check, only: [:show]
 
   def new
     @post = Post.new
@@ -72,6 +73,18 @@ class PostsController < ApplicationController
       pos = Post.find(params[:id])
       unless pos.user_id == current_user.id
         redirect_to user_path(current_user.id)
+      end
+    end
+    
+    def open_range_check
+      pos = Post.find(params[:id])
+      pos_user = User.find(params[:user_id])
+      if pos_user != current_user
+        if pos.open_range == "follow" && User.mutual_follows?(pos_user, current_user) == false 
+          redirect_to user_path(pos_user.id), flash: { primary: "この投稿曲は相互フォロー限定です。"}
+        elsif pos.open_range == "private"
+          redirect_to user_path(pos_user.id), flash: { primary: "この投稿曲は非公開です。" }
+        end
       end
     end
 end

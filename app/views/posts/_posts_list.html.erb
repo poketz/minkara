@@ -1,6 +1,6 @@
 <% posts.each do |pos| %>
   <div class="card-wrapper">
-    <%= link_to post_path(pos.id), class: "text-dark text-decoration-none" do %>
+    <%= link_to post_show_path(pos.user_id, pos.id), class: "text-dark text-decoration-none" do %>
       <div class="shadow bg-light rounded p-4 pb-5 mt-3" style="min-height: 115px;">
         <div class="row mx-0 justify-content-between">
           <div class="h6">
@@ -12,16 +12,22 @@
           <div><%= pos.user.name %> さん</div>
         <% end %>
         <% if pos.poster_comment.present? %>
-          <div class="my-1"><span class="mr-2 p-1 text-white bg-secondary rounded" style="font-size: 11px;">投稿者コメント</span><%= pos.poster_comment %></div>
+          <div class="my-1 text-break mb-3 d-flex align-items-start"><span class="mr-2 p-1 text-white bg-secondary rounded text-nowrap" style="font-size: 11px;">投稿者コメント</span><%= pos.poster_comment %></div>
         <% end %>
       </div>
     <% end %>
     <!--ユーザーの判定-->
-    <% if params[:id] == current_user.id.to_s %>
+    <% if params[:id] == current_user&.id.to_s %>
       <div class="favorite-link">
         <a href="#" data-toggle="modal" data-target="#exampleModal<%= pos.id %>" ><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></a>
         <span class="pl-3"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
       </div>
+      <div class="config-link mr-2">
+        <span class="align-middle" style="font-size: 13px;"><%= pos.open_range_i18n %></span>
+        <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary ml-2">編集</a>
+        <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger ml-1", data: {confirm: "本当に削除しますか？"} %>
+      </div>
+      <!--モーダル-->
       <div class="modal" id="exampleModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -45,11 +51,6 @@
           </div>
         </div>
       </div>
-      <div class="config-link mr-2">
-        <a href="#" data-toggle="modal" data-target="#configModal<%= pos.id %>", class="btn btn-sm btn-outline-primary">編集</a>
-        <%= link_to "削除", post_path(pos.id), method: :delete, class: "btn btn-sm btn-outline-danger", data: {confirm: "本当に削除しますか？"} %>
-      </div>
-      <!--投稿曲編集モーダル-->
       <div class="modal" id="configModal<%= pos.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

@@ -25,11 +25,12 @@ Rails.application.routes.draw do
       patch :read_all, on: :collection
     end
   end
-  resources :posts, except: [:edit, :index] do
+  resources :posts, except: [:edit, :index, :show] do
     get "search", on: :collection
     # get '/autocomplete_song/:song', on: :collection, action: :autocomplete_song
     resources :post_comments, only: [:create, :destroy]
     resource :likes, only: [:create, :destroy]
   end
+  get "users/:user_id/posts/:id", to: "posts#show", as: "post_show"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
