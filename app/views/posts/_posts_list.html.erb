@@ -9,7 +9,7 @@
           <div><%= pos.created_at.strftime('%Y/%m/%d') %>投稿</div>
         </div>
         <% if action_name == "search" %>
-          <div><%= pos.user.name %> さん</div>
+          <div class="mb-3"><%= pos.user.name %> さん</div>
         <% end %>
         <% if pos.poster_comment.present? %>
           <div class="my-1 text-break mb-3 d-flex align-items-start"><span class="mr-2 p-1 text-white bg-secondary rounded text-nowrap" style="font-size: 11px;">投稿者コメント</span><%= pos.poster_comment %></div>
