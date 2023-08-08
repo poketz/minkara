@@ -81,7 +81,7 @@
               </div>
               <div>
                 <%= pos.user.name %> さん
-                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2">今週分：</span><%= pos.likes.where(created_at: Time.current.all_week).count %></span>
+                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2">今週分:</span><%= pos.likes.where(created_at: Time.current.all_week).count %></span>
               </div>
             </div>
 
