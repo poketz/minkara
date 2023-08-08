@@ -61,7 +61,7 @@
           <% last_like = pos.likes.where(created_at: Time.current.all_week).count %>
         <% end %>
         <!--last_likeといいね数を比べて同じなら同じ順位、違うなら次の順位表示-->
-        <% if pos.likes.count != last_like %>
+        <% if pos.likes.where(created_at: Time.current.all_week).count != last_like %>
           <% j = i %>
           <% last_like = pos.likes.where(created_at: Time.current.all_week).count %>
         <% else %>
