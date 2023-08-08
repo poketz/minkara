@@ -58,14 +58,14 @@
       <% j = 1 %>
       <% @week_post_like_ranks.each.with_index(1) do |pos, i| %>
         <% if i == 1 %>
-          <% last_like = pos.likes.where(created_at: Time.current.all_week).count %>
+          <% last_like = pos.likes.liked_this_week.count %>
         <% end %>
         <!--last_likeといいね数を比べて同じなら同じ順位、違うなら次の順位表示-->
-        <% if pos.likes.where(created_at: Time.current.all_week).count != last_like %>
+        <% if pos.likes.liked_this_week.count != last_like %>
           <% j = i %>
-          <% last_like = pos.likes.where(created_at: Time.current.all_week).count %>
+          <% last_like = pos.likes.liked_this_week.count %>
         <% else %>
-          <% last_like = pos.likes.where(created_at: Time.current.all_week).count %>
+          <% last_like = pos.likes.liked_this_week.count %>
         <% end %>
 
           <div class="border d-flex p-4 mt-2 position-relative rounded bg-light">
@@ -81,7 +81,7 @@
               </div>
               <div>
                 <%= pos.user.name %> さん
-                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2">今週分:</span><%= pos.likes.where(created_at: Time.current.all_week).count %></span>
+                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2">今週分:</span><%= pos.likes.liked_this_week.count %></span>
               </div>
             </div>
 
