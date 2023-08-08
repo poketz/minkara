@@ -50,7 +50,7 @@
         <%= image_tag 'ranking.png', size: '45x45' %>
         <div class="d-flex flex-column flex-md-row">
           <h4 class="mb-0 flex-nowrap d-flex">今週のいいねランキング</h4>
-          <span class="pl-md-3 pl-0 pt-md-2" style="font-size: 13px">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>
+          <!--<span class="pl-md-3 pl-0 pt-md-2" style="font-size: 13px">※ <%= l  Time.current.beginning_of_week, format: :shortest %>～<%= l  Time.current.end_of_week, format: :shortest %>の投稿</span>-->
         </div>
       </div>
 
@@ -81,7 +81,7 @@
               </div>
               <div>
                 <%= pos.user.name %> さん
-                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2"><%= icon("far", "comment") %></span><%= pos.post_comments.count %></span>
+                <span class="pl-4"><span class="pr-2"><%= icon("fas", "heart") %></span><%= pos.likes.count %></span><span class="pl-4"><span class="pr-2">今週分：</span><%= pos.likes.where(created_at: Time.current.all_week).count %></span>
               </div>
             </div>
 

@@ -7,6 +7,8 @@ class Post < ApplicationRecord
   mount_uploader :audio, AudioUploader
   validates :audio, presence: { message: "を選択してください" }
   enum open_range: { public: 0, follow: 1, private: 2 }, _prefix: true  # 文末はエラー回避のため
+  
+  scope :created_this_week, -> { where(created_at: 6.day.ago.beginning_of_day..Time.zone.now.end_of_day) } 
 
   def self.search(search, word)
     # キーワード分割
