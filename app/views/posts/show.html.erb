@@ -21,9 +21,9 @@
 
       <div class="mt-3 row">
         <% if @post.poster_comment.present? %>
-          <div class="col-9"><span class="mr-2 p-1 text-white bg-secondary rounded" style="font-size: 11px;">投稿者コメント</span><%= @post.poster_comment %></div>
+          <div class="col-10"><span class="mr-2 p-1 text-white bg-secondary rounded" style="font-size: 11px;">投稿者コメント</span><%= @post.poster_comment %></div>
         <% end %>
-        <div class="mt-2 ml-3 col-2 px-0" id="likes">
+        <div class="mt-2 col-2 px-0" id="likes">
           <% if current_user == @post.user || current_user.id == 1 %>
             <span class="btn btn-outline-dark disabled"><span class="pr-2"><%= icon("fas", "heart") %></span><%= @post.likes.count %></span>
           <% else %>
